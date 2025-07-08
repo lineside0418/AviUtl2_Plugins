@@ -47,5 +47,19 @@
         "url": "https://github.com/rigaya/QSVEnc",
         "tags": ["必須", "出力", "ハードウェアエンコード", "GPU"],
         "createdAt": "2025-07-09T02:22:00Z"
+    },
+    {
+        "name": "x264guiEx",
+        "description": "x264を使用してでのエンコードへの対応",
+        "url": "https://github.com/rigaya/x264guiEx",
+        "tags": ["必須", "出力", "x264"],
+        "createdAt": "2025-07-09T02:34:00Z"
+    },
+    {
+        "name": "x265guiEx",
+        "description": "x265を使用してでのエンコードへの対応",
+        "url": "https://github.com/rigaya/x265guiEx",
+        "tags": ["必須", "出力", "x265"],
+        "createdAt": "2025-07-09T02:34:00Z"
     }
 ]
