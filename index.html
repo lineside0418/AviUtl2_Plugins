@@ -468,17 +468,20 @@
             gap: 15px; /* リストモードの隙間を狭く */
         }
         .plugin-list.list-mode .plugin-card {
+            display: flex;
             flex-direction: row; /* 横並びにする */
             align-items: center;
             padding: 15px 20px;
-            gap: 20px; /* カード内の要素の隙間 */
+            gap: 15px; /* カード内の要素の隙間 */
+            flex-wrap: wrap; /* 要素が収まらない場合に折り返す */
         }
         .plugin-list.list-mode .plugin-card h2 {
+            margin-top: 0;
             margin-bottom: 0; /* マージンをリセット */
             font-size: 1.3em;
-            white-space: nowrap; /* タイトルが改行されないように */
-            flex-shrink: 0; /* 縮まないように */
-            width: 200px; /* タイトル用の固定幅 */
+            white-space: normal; /* 折り返しを許可 */
+            flex-basis: 100%; /* 1行を占有 */
+            order: 1; /* タイトルを一番上 */
         }
         .plugin-list.list-mode .plugin-card p {
             margin-bottom: 0;
@@ -487,15 +490,39 @@
             overflow: hidden; /* はみ出した部分は隠す */
             text-overflow: ellipsis; /* ...で省略 */
             white-space: nowrap; /* 一行に */
+            flex-basis: 100%; /* 1行を占有 */
+            order: 2; /* 説明文をタイトルとタグの間 */
+            color: #ccc; /* 説明文の色調整 */
+        }
+        .plugin-list.list-mode .plugin-card .tags {
+            margin-top: 0;
+            font-size: 0.75em; /* タグを小さく */
+            gap: 5px;
+            flex-shrink: 0; /* 縮まないように */
+            order: 3; /* タグをタイトルの右 */
+            align-self: flex-start; /* 上寄せ */
+            margin-left: auto; /* 右寄せ */
+        }
+        .plugin-list.list-mode .plugin-card .tag {
+            padding: 3px 8px; /* タグのパディングを小さく */
         }
         .plugin-list.list-mode .plugin-card .info {
-            display: none; /* リストモードでは非表示 */
+            font-size: 0.75em; /* 更新日時を小さく */
+            color: #888;
+            margin-bottom: 0;
+            flex-shrink: 0; /* 縮まないように */
+            order: 4; /* 更新日時をリンクの左 */
+            margin-left: auto; /* 右寄せ */
+            white-space: nowrap; /* 折り返し禁止 */
         }
         .plugin-list.list-mode .plugin-card .link {
             flex-shrink: 0; /* 縮まないように */
+            order: 5; /* リンクを一番右 */
+            align-self: center; /* 中央寄せ */
         }
-        .plugin-list.list-mode .plugin-card .tags {
-            display: none; /* リストモードでは非表示 */
+        .plugin-list.list-mode .plugin-card .link a {
+            font-size: 0.85em; /* リンクの文字を小さく */
+            padding: 6px 12px;
         }
 
 
@@ -759,10 +786,19 @@
             }
             .plugin-list.list-mode .plugin-card p {
                 white-space: normal; /* 折り返しを許可 */
+                text-overflow: clip; /* ...を消す */
+                overflow: visible; /* はみ出しを許可 */
             }
             .plugin-list.list-mode .plugin-card .link {
                 align-self: flex-end; /* 右下に配置 */
             }
+            .plugin-list.list-mode .plugin-card .tags {
+                margin-left: 0; /* 左寄せに戻す */
+            }
+            .plugin-list.list-mode .plugin-card .info {
+                margin-left: 0; /* 左寄せに戻す */
+            }
+
             .search-area::after { /* レスポンシブでは線を消すか調整 */
                 width: 100%;
                 left: 0;
@@ -799,6 +835,25 @@
             }
             .sidebar-area {
                 padding: 20px 15px;
+            }
+            /* リストモードのモバイル調整 */
+            .plugin-list.list-mode .plugin-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .plugin-list.list-mode .plugin-card h2 {
+                font-size: 1.2em;
+            }
+            .plugin-list.list-mode .plugin-card p {
+                font-size: 0.85em;
+            }
+            .plugin-list.list-mode .plugin-card .tags,
+            .plugin-list.list-mode .plugin-card .info,
+            .plugin-list.list-mode .plugin-card .link {
+                align-self: flex-start; /* 全部左寄せに */
+                margin-left: 0;
+                order: unset; /* orderをリセット */
             }
         }
     </style>
@@ -840,11 +895,11 @@
                     <div class="plugins-per-page-controls">
                         <span class="icon-button" title="表示数"><i class="ri-list-check-2"></i></span>
                         <select id="pluginsPerPage">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
+                            <option value="12">12</option>
+                            <option value="24">24</option>
+                            <option value="36">36</option>
+                            <option value="60">60</option>
+                            <option value="120">120</option>
                             <option value="all">全て</option>
                         </select>
                     </div>
@@ -921,19 +976,24 @@
             card.classList.add('plugin-card');
             card.dataset.tags = plugin.tags.join(',');
 
+            // リストモードとグリッドモードでHTML構造を変えることで、CSSのorderプロパティが活きるようにする
+            // グリッドモードではdescription, info, tags, link の順
+            // リストモードではh2, p, tags, info, link の順
+
+            // 更新日時を整形
+            const updatedAtFormatted = plugin.updatedAt.toLocaleDateString();
+
             card.innerHTML = `
                 <h2>${plugin.name}</h2>
-                <p>${plugin.description}</p>
-                <div class="info">
-                    作成日時: ${plugin.createdAt.toLocaleDateString()} ${plugin.createdAt.toLocaleTimeString()}
-                    <br>
-                    更新日時: ${plugin.updatedAt.toLocaleDateString()} ${plugin.updatedAt.toLocaleTimeString()}
-                </div>
-                <div class="link">
-                    <a href="${plugin.url}" target="_blank" rel="noopener noreferrer">ダウンロードページへ</a>
-                </div>
+                <p class="description-text">${plugin.description}</p>
                 <div class="tags">
                     ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                <div class="info">
+                    更新: ${updatedAtFormatted}
+                </div>
+                <div class="link">
+                    <a href="${plugin.url}" target="_blank" rel="noopener noreferrer">ダウンロード</a>
                 </div>
             `;
             return card;
@@ -1280,15 +1340,14 @@
             pluginList.classList.remove('list-mode');
             gridButton.classList.add('active');
             listButton.classList.remove('active');
-            // 表示モードが変わったときも再レンダリングは不要だが、念のため再適用
-            // renderPlugins(); // 変更しない
+            renderPlugins(); // 表示モードが変わったときも再レンダリングする
         });
 
         listButton.addEventListener('click', () => {
             pluginList.classList.add('list-mode');
             listButton.classList.add('active');
             gridButton.classList.remove('active');
-            // renderPlugins(); // 変更しない
+            renderPlugins(); // 表示モードが変わったときも再レンダリングする
         });
 
         // ページが読み込まれたら初期化するよ
