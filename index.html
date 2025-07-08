@@ -462,75 +462,7 @@
             opacity: 1;
         }
 
-        /* リストモードのスタイル */
-        .plugin-list.list-mode {
-            grid-template-columns: 1fr; /* 1列にする */
-            gap: 15px; /* リストモードの隙間を狭く */
-        }
-        .plugin-list.list-mode .plugin-card {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr; /* 左: タイトル・説明、右: タグ・日時・リンク */
-            grid-template-rows: auto auto; /* 2行 */
-            padding: 15px 20px;
-            gap: 5px 15px; /* 行と列の隙間 */
-            align-items: center;
-        }
-        .plugin-list.list-mode .plugin-card h2 {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 1.35em; /* フォントを少し大きく */
-            white-space: normal;
-            grid-column: 1 / 2; /* 1列目 */
-            grid-row: 1 / 2; /* 1行目 */
-            line-height: 1.2;
-        }
-        .plugin-list.list-mode .plugin-card p.description-text { /* 説明文にクラス追加 */
-            margin-bottom: 0;
-            font-size: 0.95em; /* フォントを少し大きく */
-            white-space: normal; /* 折り返しを許可 */
-            overflow: visible; /* はみ出しを許可 */
-            text-overflow: clip; /* ...を消す */
-            grid-column: 1 / 2; /* 1列目 */
-            grid-row: 2 / 3; /* 2行目 */
-            color: #ccc;
-        }
-        .plugin-list.list-mode .plugin-card .tags {
-            margin-top: 0;
-            font-size: 0.8em; /* タグを小さく */
-            gap: 5px;
-            grid-column: 2 / 3; /* 2列目 */
-            grid-row: 1 / 2; /* 1行目 */
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end; /* 右寄せ */
-            align-items: center;
-        }
-        .plugin-list.list-mode .plugin-card .tag {
-            padding: 3px 8px; /* タグのパディングを小さく */
-        }
-        .plugin-list.list-mode .plugin-card .info {
-            font-size: 0.8em; /* 更新日時を小さく */
-            color: #888;
-            margin-bottom: 0;
-            grid-column: 2 / 3; /* 2列目 */
-            grid-row: 2 / 3; /* 2行目 */
-            text-align: right; /* 右寄せ */
-            white-space: nowrap; /* 折り返し禁止 */
-            align-self: flex-end; /* 下寄せ */
-        }
-        .plugin-list.list-mode .plugin-card .link {
-            grid-column: 2 / 3; /* 2列目 */
-            grid-row: 2 / 3; /* 2行目 */
-            justify-self: flex-end; /* 右寄せ */
-            align-self: flex-end; /* 下寄せ */
-            margin-left: 10px; /* 更新日時とリンクの隙間 */
-        }
-        .plugin-list.list-mode .plugin-card .link a {
-            font-size: 0.85em; /* リンクの文字を小さく */
-            padding: 6px 12px;
-        }
-
-
+        /* プラグインカード */
         .plugin-card {
             border: 1px solid #333;
             border-radius: 8px;
@@ -554,28 +486,56 @@
             display: none;
         }
 
-        /* カード内のテキストとリンクのスタイル */
-        .plugin-card h2 {
+        /* グリッドモードのカード内部レイアウト */
+        .plugin-list:not(.list-mode) .plugin-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 親要素(grid)の高さに合わせる */
+            min-height: 250px; /* 最小高さを設定 */
+            justify-content: space-between; /* 内容を上下に振り分ける */
+        }
+        .plugin-list:not(.list-mode) .plugin-card .card-header {
+            display: block; /* 垂直方向に積むためblock */
+            margin-bottom: 12px;
+        }
+        .plugin-list:not(.list-mode) .plugin-card h2 {
             margin-top: 0;
             color: #fff;
             font-size: 1.5em;
-            margin-bottom: 12px;
+            margin-bottom: 0; /* タグとの隙間調整 */
             font-weight: 700;
             line-height: 1.3;
         }
-        .plugin-card p {
+        .plugin-list:not(.list-mode) .plugin-card .tags {
+            margin-top: 10px; /* タイトルとタグの間に少し隙間 */
+            font-size: 0.85em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .plugin-list:not(.list-mode) .plugin-card p.description-text {
             font-size: 0.95em;
             line-height: 1.7;
             color: #ccc;
             margin-bottom: 15px;
             flex-grow: 1; /* 説明文が伸びるように */
+            overflow: hidden; /* はみ出しを隠す */
+            text-overflow: ellipsis; /* ...で省略 */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 3行で省略 */
+            -webkit-box-orient: vertical;
         }
-        .plugin-card .info { /* 作成日時などの情報表示用 */
+        .plugin-list:not(.list-mode) .plugin-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* 下部に固定 */
+        }
+        .plugin-list:not(.list-mode) .plugin-card .info {
             font-size: 0.8em;
             color: #888;
-            margin-bottom: 10px;
         }
-        .plugin-card .link a {
+        .plugin-list:not(.list-mode) .plugin-card .link a {
             color: #fff;
             background-color: #000;
             border: 1px solid #fff;
@@ -586,20 +546,97 @@
             display: inline-block;
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
-        .plugin-card .link a:hover {
+        .plugin-list:not(.list-mode) .plugin-card .link a:hover {
             background-color: #fff;
             color: #000;
             border-color: #fff;
         }
 
-        /* タグのスタイル */
-        .plugin-card .tags {
-            margin-top: 15px;
-            font-size: 0.85em;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+
+        /* リストモードのスタイル */
+        .plugin-list.list-mode {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 15px; /* リストモードの隙間を狭く */
         }
+        .plugin-list.list-mode .plugin-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto; /* タイトル・タグ / 説明 / リンク・更新日時 */
+            grid-template-rows: auto auto; /* 2行 */
+            padding: 15px 20px;
+            gap: 5px 15px; /* 行と列の隙間 */
+            align-items: center;
+            height: auto; /* 高さは内容に合わせる */
+            min-height: unset; /* 最小高さを解除 */
+        }
+        .plugin-list.list-mode .plugin-card .card-header {
+            display: flex; /* h2とtagsを横並びにする */
+            align-items: baseline; /* ベースラインを揃える */
+            gap: 10px; /* h2とtagsの間隔 */
+            grid-column: 1 / 2; /* 1列目 (タイトルとタグ) */
+            grid-row: 1 / 2; /* 1行目 */
+            flex-wrap: wrap; /* タグが多い場合に折り返す */
+            margin-bottom: 0; /* 記述の順番で調整 */
+        }
+        .plugin-list.list-mode .plugin-card h2 {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 1.35em; /* フォントを少し大きく */
+            white-space: normal; /* 折り返しを許可 */
+            line-height: 1.2;
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .plugin-list.list-mode .plugin-card .tags {
+            margin-top: 0; /* 親要素で調整 */
+            font-size: 0.8em; /* タグを小さく */
+            gap: 5px;
+            flex-wrap: wrap; /* 折り返しを許可 */
+            flex-grow: 1; /* 余白を埋める */
+            justify-content: flex-start; /* 左寄せ */
+        }
+        .plugin-list.list-mode .plugin-card .tag {
+            padding: 3px 8px; /* タグのパディングを小さく */
+        }
+        .plugin-list.list-mode .plugin-card p.description-text { /* 説明文にクラス追加 */
+            margin-bottom: 0;
+            font-size: 0.95em; /* フォントを少し大きく */
+            white-space: normal; /* 折り返しを許可 */
+            overflow: hidden; /* はみ出しを隠す */
+            text-overflow: ellipsis; /* ...を消す */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 2行で省略 */
+            -webkit-box-orient: vertical;
+            grid-column: 1 / 3; /* 1列目から2列目まで */
+            grid-row: 2 / 3; /* 2行目 */
+            color: #ccc;
+            margin-top: 5px; /* タイトルブロックと説明の隙間 */
+        }
+        .plugin-list.list-mode .plugin-card .card-footer {
+            grid-column: 3 / 4; /* 3列目 */
+            grid-row: 1 / 3; /* 1行目から2行目まで占める */
+            flex-direction: column; /* 垂直に配置 */
+            justify-content: space-between; /* 上下に振り分け */
+            align-items: flex-end; /* 右寄せ */
+            height: 100%; /* 親グリッドセルの高さに合わせる */
+            margin-top: 0; /* 記述の順番で調整 */
+        }
+        .plugin-list.list-mode .plugin-card .info {
+            font-size: 0.8em; /* 更新日時を小さく */
+            color: #888;
+            margin-bottom: 0;
+            text-align: right; /* 右寄せ */
+            white-space: nowrap; /* 折り返し禁止 */
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .plugin-list.list-mode .plugin-card .link {
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .plugin-list.list-mode .plugin-card .link a {
+            font-size: 0.85em; /* リンクの文字を小さく */
+            padding: 6px 12px;
+        }
+
+
+        /* タグのスタイル */
         .plugin-card .tag {
             display: inline-block;
             background-color: #222;
@@ -609,6 +646,7 @@
             border: 1px solid #444;
             cursor: pointer;
             transition: background-color 0.2s, color 0.2s;
+            white-space: nowrap; /* タグが折り返さないように */
         }
         .plugin-card .tag:hover {
             background-color: #444;
@@ -781,35 +819,43 @@
             /* リストモードのレスポンシブ調整 */
             .plugin-list.list-mode .plugin-card {
                 grid-template-columns: 1fr; /* 1列に戻す */
-                grid-template-rows: auto auto auto auto; /* 行を再定義 */
+                grid-template-rows: auto auto auto; /* 3行に再定義 */
                 gap: 5px 0; /* ギャップを調整 */
             }
-            .plugin-list.list-mode .plugin-card h2 {
+            .plugin-list.list-mode .plugin-card .card-header {
                 grid-column: 1 / 2;
                 grid-row: 1 / 2;
                 font-size: 1.3em; /* 少し小さく */
+                flex-direction: column; /* タイトルとタグを縦に積む */
+                align-items: flex-start; /* 左寄せに */
+                gap: 5px; /* 間隔を狭く */
+            }
+            .plugin-list.list-mode .plugin-card h2 {
+                font-size: 1.1em;
+            }
+            .plugin-list.list-mode .plugin-card .tags {
+                font-size: 0.7em;
+                justify-content: flex-start; /* 左寄せ維持 */
             }
             .plugin-list.list-mode .plugin-card p.description-text {
                 grid-column: 1 / 2;
                 grid-row: 2 / 3;
                 font-size: 0.9em; /* 少し小さく */
             }
-            .plugin-list.list-mode .plugin-card .tags {
+            .plugin-list.list-mode .plugin-card .card-footer {
                 grid-column: 1 / 2;
                 grid-row: 3 / 4;
-                justify-content: flex-start; /* 左寄せに戻す */
+                flex-direction: row; /* 横並びに戻す */
+                justify-content: space-between; /* 両端揃え */
+                align-items: center; /* 中央揃え */
             }
             .plugin-list.list-mode .plugin-card .info {
-                grid-column: 1 / 2;
-                grid-row: 4 / 5;
+                font-size: 0.7em;
                 text-align: left; /* 左寄せに戻す */
             }
-            .plugin-list.list-mode .plugin-card .link {
-                grid-column: 1 / 2;
-                grid-row: 4 / 5;
-                justify-self: flex-end; /* 右寄せ維持 */
-                align-self: flex-end; /* 下寄せ維持 */
-                margin-left: 0;
+            .plugin-list.list-mode .plugin-card .link a {
+                font-size: 0.75em;
+                padding: 5px 10px;
             }
         }
 
@@ -988,18 +1034,21 @@
             // 更新日時を整形
             const updatedAtFormatted = plugin.updatedAt.toLocaleDateString();
 
-            // リストモードとグリッドモードでHTML構造が共通化されたため、CSSでレイアウトを制御する
             card.innerHTML = `
-                <h2>${plugin.name}</h2>
-                <div class="tags">
-                    ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="card-header">
+                    <h2>${plugin.name}</h2>
+                    <div class="tags">
+                        ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
                 </div>
                 <p class="description-text">${plugin.description}</p>
-                <div class="info">
-                    更新: ${updatedAtFormatted}
-                </div>
-                <div class="link">
-                    <a href="${plugin.url}" target="_blank" rel="noopener noreferrer">ダウンロード</a>
+                <div class="card-footer">
+                    <div class="info">
+                        更新: ${updatedAtFormatted}
+                    </div>
+                    <div class="link">
+                        <a href="${plugin.url}" target="_blank" rel="noopener noreferrer">ダウンロード</a>
+                    </div>
                 </div>
             `;
             return card;
@@ -1127,7 +1176,7 @@
                 } else if (sortOrder === 'date-newest') {
                     return b.createdAt.getTime() - a.createdAt.getTime();
                 } else if (sortOrder === 'date-oldest') {
-                    return a.createdAt.getTime() - b.createdAt.getTime();
+                    return a.createdAt.getTime() - a.createdAt.getTime();
                 }
                 return 0;
             });
