@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AviUtl2 - スクリプト一覧</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="./icon.png" type="image/png">
+    <link rel="shortcut icon" href="./icon.png" type="image/png">
+    <style>
+        /* 全体のリセットと基本設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            margin: 0;
+            background-color: #000; /* デフォルトはダークモード */
+            color: #fff; /* デフォルトはダークモード */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px 20px; /* 全体的なパディングを調整 */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ページトップに戻るボタン */
+        #toTopButton {
+            position: fixed;
+            bottom: 30px; /* 少し内側に */
+            right: 30px; /* 少し内側に */
+            background-color: #000; /* 黒 */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            font-size: 1.6em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, background-color 0.3s;
+            z-index: 999;
+        }
+        #toTopButton.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #toTopButton:hover {
+            background-color: #333; /* 少しグレーに */
+        }
+
+        /* 2カラムのメインコンテナ */
+        .main-layout-container {
+            display: flex;
+            width: 100%;
+            height: auto; /* 高さを自動調整 */
+            gap: 0; /* カラム間のギャップをなくす */
+            background-color: transparent; /* 背景を透明に */
+            box-shadow: none; /* 影を削除 */
+            padding: 0; /* 画面いっぱいに使うためパディングを削除 */
+        }
+
+        /* 左側のメインコンテンツエリア */
+        .content-area {
+            flex-grow: 1;
+            min-width: 700px;
+            display: flex;
+            flex-direction: column;
+            padding: 40px; /* コンテンツ自体のパディング */
+            background-color: transparent; /* 背景を透明に */
+            position: relative;
+            z-index: 1; /* サイドバーより手前に */
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px; /* margin-bottomを少し減らす */
+            font-size: 2.2em; /* フォントサイズを少し小さく */
+            font-weight: 700;
+            letter-spacing: 1px; /* letter-spacingを少し調整 */
+            border-bottom: 1px solid #333; /* ボーダーを少し控えめに */
+            padding-bottom: 8px; /* padding-bottomを少し減らす */
+        }
+
+        /* 検索エリアのスタイル */
+        .search-area {
+            margin-bottom: 0; /* スクリプトリストとの隙間をなくす */
+            padding: 25px 0; /* 上下のパディングは残す */
+            background-color: transparent; /* 背景を透明に */
+            border: none; /* ボーダーを削除 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+        .search-area::after { /* 検索エリアとスクリプトリストの間の線を表現 */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%; /* 線の幅を調整 */
+            height: 1px;
+            background-color: #333; /* ダークモードの線 */
+        }
+
+
+        /* 注意書きのスタイル */
+        .search-notice {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 15px;
+            text-align: center;
+            line-height: 1.5;
+            background-color: #111; /* 少し暗めの背景 */
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px dashed #444;
+        }
+        .search-notice strong {
+            color: #fff;
+        }
+
+        .search-input-group {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            gap: 10px;
+        }
+
+        .search-area input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 18px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #222;
+            color: #eee;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-area input[type="text"]::placeholder {
+            color: #888;
+        }
+        .search-area input[type="text"]:focus {
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #fff;
+            padding: 12px 15px; /* アイコンに合わせたパディング */
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em; /* アイコンサイズ */
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+            display: flex; /* アイコンを中央に配置するため */
+            justify-content: center;
+            align-items: center;
+        }
+        .search-button:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #fff;
+        }
+        .search-button i {
+            font-size: 1em; /* 親要素のフォントサイズに合わせる */
+        }
+
+        /* ソート、表示数、ビューモードのコントロール */
+        .controls-row {
+            display: flex;
+            justify-content: space-between; /* 両端揃え */
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 15px;
+            gap: 15px; /* アイテム間の隙間 */
+            padding-top: 15px; /* 上部に少し余白 */
+        }
+
+        .sort-controls,
+        .scripts-per-page-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* アイコンとセレクトボックスの間 */
+        }
+
+        .controls-row .icon-button { /* ソート・表示数アイコン（クリック不可） */
+            color: #aaa; /* アイコンの色を少し薄く */
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default; /* カーソルをデフォルトに */
+            user-select: none; /* テキスト選択不可 */
+            pointer-events: none; /* クリックイベントを無効化 */
+            padding: 8px 12px; /* スペースを合わせる */
+        }
+
+        .controls-row select {
+            padding: 8px 12px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #222;
+            color: #eee;
+            font-size: 0.9em;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .controls-row select:focus {
+            border-color: #fff;
+        }
+
+        /* グリッド/リスト表示切り替えボタン */
+        .view-mode-controls {
+            display: flex;
+            gap: 5px;
+        }
+        .view-mode-controls button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .view-mode-controls button:hover:not(.active) {
+            background-color: #555;
+            border-color: #777;
+        }
+        .view-mode-controls button.active {
+            background-color: #000; /* 黒 */
+            border-color: #000;
+            color: #fff; /* 白 */
+        }
+
+        /* 更新ボタンのスタイル */
+        #refreshButton {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #refreshButton:hover {
+            background-color: #555;
+            border-color: #777;
+        }
+
+        /* スクリプトリストのスタイル */
+        .script-list {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            transition: opacity 0.5s ease-out, grid-template-columns 0.3s, gap 0.3s;
+            opacity: 1;
+            padding-top: 40px; /* 検索エリアとの間にパディングを追加 */
+            padding-bottom: 20px;
+        }
+        .script-list.fade-out {
+            opacity: 0;
+        }
+        .script-list.fade-in {
+            opacity: 1;
+        }
+
+        /* スクリプトカード */
+        .script-card {
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #1a1a1a;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Flexboxで中身を配置 */
+            flex-direction: column;
+        }
+        .script-card:hover {
+            background-color: #2a2a2a;
+            border-color: #555;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            transform: none;
+        }
+
+        .script-card.hidden {
+            display: none;
+        }
+
+        /* グリッドモードのカード内部レイアウト */
+        .script-list:not(.list-mode) .script-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 親要素(grid)の高さに合わせる */
+            min-height: 250px; /* 最小高さを設定 */
+            justify-content: space-between; /* 内容を上下に振り分ける */
+        }
+        .script-list:not(.list-mode) .script-card .card-header {
+            display: block; /* 垂直方向に積むためblock */
+            margin-bottom: 12px;
+        }
+        .script-list:not(.list-mode) .script-card h2 {
+            margin-top: 0;
+            color: #fff;
+            font-size: 1.5em;
+            margin-bottom: 0; /* タグとの隙間調整 */
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .script-list:not(.list-mode) .script-card .tags {
+            margin-top: 10px; /* タイトルとタグの間に少し隙間 */
+            font-size: 0.85em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .script-list:not(.list-mode) .script-card p.description-text {
+            font-size: 0.95em;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 15px;
+            flex-grow: 1; /* 説明文が伸びるように */
+            overflow: hidden; /* はみ出しを隠す */
+            text-overflow: ellipsis; /* ...で省略 */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 3行で省略 */
+            -webkit-box-orient: vertical;
+        }
+        .script-list:not(.list-mode) .script-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* 下部に固定 */
+        }
+        .script-list:not(.list-mode) .script-card .info {
+            font-size: 0.8em;
+            color: #888;
+        }
+        .script-list:not(.list-mode) .script-card .link a {
+            color: #fff;
+            background-color: #000;
+            border: 1px solid #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .script-list:not(.list-mode) .script-card .link a:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+
+        /* リストモードのスタイル */
+        .script-list.list-mode {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 15px; /* リストモードの隙間を狭く */
+        }
+        .script-list.list-mode .script-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto; /* タイトル・タグ / 説明 / リンク・更新日時 */
+            grid-template-rows: auto auto; /* 2行 */
+            padding: 15px 20px;
+            gap: 5px 15px; /* 行と列の隙間 */
+            align-items: center;
+            height: auto; /* 高さは内容に合わせる */
+            min-height: unset; /* 最小高さを解除 */
+        }
+        .script-list.list-mode .script-card .card-header {
+            display: flex; /* h2とtagsを横並びにする */
+            align-items: baseline; /* ベースラインを揃える */
+            gap: 10px; /* h2とtagsの間隔 */
+            grid-column: 1 / 2; /* 1列目 (タイトルとタグ) */
+            grid-row: 1 / 2; /* 1行目 */
+            flex-wrap: wrap; /* タグが多い場合に折り返す */
+            margin-bottom: 0; /* 記述の順番で調整 */
+        }
+        .script-list.list-mode .script-card h2 {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 1.35em; /* フォントを少し大きく */
+            white-space: normal; /* 折り返しを許可 */
+            line-height: 1.2;
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .script-list.list-mode .script-card .tags {
+            margin-top: 0; /* 親要素で調整 */
+            font-size: 0.8em; /* タグを小さく */
+            gap: 5px;
+            flex-wrap: wrap; /* 折り返しを許可 */
+            flex-grow: 1; /* 余白を埋める */
+            justify-content: flex-start; /* 左寄せ */
+        }
+        .script-list.list-mode .script-card .tag {
+            padding: 3px 8px; /* タグのパディングを小さく */
+        }
+        .script-list.list-mode .script-card p.description-text { /* 説明文にクラス追加 */
+            margin-bottom: 0;
+            font-size: 0.95em; /* フォントを少し大きく */
+            white-space: normal; /* 折り返しを許可 */
+            overflow: hidden; /* はみ出しを隠す */
+            text-overflow: ellipsis; /* ...を消す */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 2行で省略 */
+            -webkit-box-orient: vertical;
+            grid-column: 1 / 3; /* 1列目から2列目まで */
+            grid-row: 2 / 3; /* 2行目 */
+            color: #ccc;
+            margin-top: 5px; /* タイトルブロックと説明の隙間 */
+        }
+        .script-list.list-mode .script-card .card-footer {
+            grid-column: 3 / 4; /* 3列目 */
+            grid-row: 1 / 3; /* 1行目から2行目まで占める */
+            flex-direction: column; /* 垂直に配置 */
+            justify-content: space-between; /* 上下に振り分け */
+            align-items: flex-end; /* 右寄せ */
+            height: 100%; /* 親グリッドセルの高さに合わせる */
+            margin-top: 0; /* 記述の順番で調整 */
+        }
+        .script-list.list-mode .script-card .info {
+            font-size: 0.8em; /* 更新日時を小さく */
+            color: #888;
+            margin-bottom: 0;
+            text-align: right; /* 右寄せ */
+            white-space: nowrap; /* 折り返し禁止 */
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .script-list.list-mode .script-card .link {
+            flex-shrink: 0; /* 縮まないように */
+        }
+        .script-list.list-mode .script-card .link a {
+            color: #fff; /* グリッドと同じ色に */
+            background-color: #000; /* グリッドと同じ色に */
+            border: 1px solid #fff; /* グリッドと同じ色に */
+            padding: 6px 12px; /* パディングを調整 */
+            border-radius: 4px; /* 角丸を適用 */
+            text-decoration: none; /* 下線なし */
+            font-weight: 600; /* 太字 */
+            display: inline-block;
+            font-size: 0.85em; /* リンクの文字を小さく */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .script-list.list-mode .script-card .link a:hover {
+            background-color: #fff; /* グリッドと同じホバー色に */
+            color: #000; /* グリッドと同じホバー色に */
+            border-color: #fff; /* グリッドと同じホバー色に */
+        }
+
+
+        /* タグのスタイル */
+        .script-card .tag {
+            display: inline-block;
+            background-color: #222;
+            color: #aaa;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #444;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            white-space: nowrap; /* タグが折り返さないように */
+        }
+        .script-card .tag:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        /* ページネーション */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 8px;
+        }
+        .pagination button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .pagination button:hover:not(:disabled) {
+            background-color: #555;
+            border-color: #777;
+        }
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination button.active {
+            background-color: #000; /* 黒 */
+            border-color: #000;
+            color: #fff; /* 白 */
+        }
+
+        /* 右側のサイドバー（タグ一覧） */
+        .sidebar-area {
+            flex-shrink: 0;
+            width: 380px; /* サイドバーの幅を少し広げる */
+            background-color: #1a1a1a; /* サイドバーに少し背景色 */
+            border-left: 1px solid #333; /* 左側にボーダー */
+            border-radius: 0; /* 角丸を削除 */
+            padding: 40px; /* コンテンツ自体のパディング */
+            position: sticky;
+            top: 0; /* トップに固定 */
+            height: 100vh; /* 画面いっぱいに広げる */
+            overflow-y: auto; /* タグが多い場合にスクロールできるように */
+            z-index: 0; /* コンテンツエリアより奥に */
+        }
+
+
+        .sidebar-area h2 {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .sidebar-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .sidebar-tag-list button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+            outline: none;
+        }
+        .sidebar-tag-list button:hover {
+            background-color: #555;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        .sidebar-tag-list button.active {
+            background-color: #000; /* 黒 */
+            color: #fff; /* 白 */
+            border-color: #000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+
+        /* レスポンシブ対応 */
+        @media (max-width: 1200px) {
+            .main-layout-container {
+                flex-direction: column;
+                gap: 0; /* ギャップを削除 */
+                padding: 0;
+            }
+            .content-area {
+                min-width: unset;
+                width: 100%;
+                padding: 30px 20px; /* パディングを調整 */
+            }
+            .sidebar-area {
+                width: 100%;
+                position: static;
+                height: auto; /* 高さを自動に */
+                border-left: none; /* ボーダー削除 */
+                border-top: 1px solid #333; /* 上に線 */
+                padding: 30px 20px; /* パディングを調整 */
+            }
+
+            .sidebar-area h2 {
+                margin-bottom: 20px;
+            }
+            #toTopButton {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+                bottom: 20px;
+                right: 20px;
+            }
+            .controls-row {
+                flex-direction: column;
+                align-items: flex-start; /* 左寄せに戻す */
+                gap: 10px;
+            }
+            .sort-controls,
+            .scripts-per-page-controls,
+            .view-mode-controls {
+                width: 100%;
+                justify-content: flex-end; /* 右寄せ維持 */
+            }
+            .pagination {
+                flex-wrap: wrap;
+            }
+
+            /* リストモードのレスポンシブ調整 */
+            .script-list.list-mode .script-card {
+                grid-template-columns: 1fr; /* 1列に戻す */
+                grid-template-rows: auto auto auto; /* 3行に再定義 */
+                gap: 5px 0; /* ギャップを調整 */
+            }
+            .script-list.list-mode .script-card .card-header {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                font-size: 1.3em; /* 少し小さく */
+                flex-direction: column; /* タイトルとタグを縦に積む */
+                align-items: flex-start; /* 左寄せに */
+                gap: 5px; /* 間隔を狭く */
+            }
+            .script-list.list-mode .script-card h2 {
+                font-size: 1.1em;
+            }
+            .script-list.list-mode .script-card .tags {
+                font-size: 0.7em;
+                justify-content: flex-start; /* 左寄せ維持 */
+            }
+            .script-list.list-mode .script-card p.description-text {
+                font-size: 0.9em; /* 少し小さく */
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            .script-list.list-mode .script-card .card-footer {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+                flex-direction: row; /* 横並びに戻す */
+                justify-content: space-between; /* 両端揃え */
+                align-items: center; /* 中央揃え */
+            }
+            .script-list.list-mode .script-card .info {
+                font-size: 0.7em;
+                text-align: left; /* 左寄せに戻す */
+            }
+            .script-list.list-mode .script-card .link a {
+                font-size: 0.75em;
+                padding: 5px 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            .main-layout-container {
+                padding: 0;
+            }
+            .content-area {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 1.8em; /* さらに小さく */
+                margin-bottom: 25px;
+            }
+            .search-area {
+                padding: 20px 0;
+            }
+            .search-input-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-button {
+                width: 100%;
+            }
+            .script-list {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-area {
+                padding: 20px 15px;
+            }
+            /* リストモードのモバイル調整 */
+            .script-list.list-mode .script-card {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .script-list.list-mode .script-card h2 {
+                font-size: 1.1em;
+            }
+            .script-list.list-mode .script-card p.description-text {
+                font-size: 0.8em;
+            }
+            .script-list.list-mode .script-card .tags {
+                font-size: 0.7em;
+            }
+            .script-list.list-mode .script-card .info {
+                font-size: 0.7em;
+            }
+            .script-list.list-mode .script-card .link a {
+                font-size: 0.75em;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-layout-container">
+        <div class="content-area">
+            <h1>AviUtl2 スクリプト一覧</h1>
+
+            <div class="search-area" id="searchArea">
+                <div class="search-notice">
+                    <strong>ご注意ください:</strong> 本サイトのスクリプト情報は**非公式**であり、更新が不定期かつ不正確な場合があります。<br>
+                    各スクリプトの導入方法はご自身でご確認ください。お問い合わせはX: <a href="https://twitter.com/_lineside_" target="_blank" rel="noopener noreferrer">@_lineside_</a>まで。
+                </div>
+                <div class="search-notice">
+                    <strong>プラグインのまとめページはこちらから→ : </strong><a href="./index.html">AviUtl2 - プラグイン一覧</a>
+                </div>
+                <div class="search-notice" style="margin-top: 15px; border: 1px solid #5C6BC0; background-color: #1A237E; color: #E8EAF6;">
+                    新しいスクリプト情報をご存知ですか？ <a href="contact.html" style="color: #BBDEFB; text-decoration: underline; font-weight: bold;">こちらから教えてください！</a>
+                </div>
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="キーワードまたは #タグ名 で検索...">
+                    <button id="searchButton" class="search-button">
+                        <i class="ri-search-line"></i> </button>
+                </div>
+
+                <div class="controls-row">
+                    <div class="view-mode-controls">
+                        <button id="gridButton" class="active" title="グリッド表示"><i class="ri-grid-fill"></i></button>
+                        <button id="listButton" title="リスト表示"><i class="ri-list-unordered"></i></button>
+                    </div>
+                    <button id="refreshButton" title="リストを更新"><i class="ri-refresh-line"></i></button>
+
+                    <div class="sort-controls">
+                        <span class="icon-button" title="並び順"><i class="ri-sort-asc"></i></span>
+                        <select id="sortOrder">
+                            <option value="name-asc">名前 (昇順)</option>
+                            <option value="name-desc">名前 (降順)</option>
+                            <option value="date-newest">作成日時 (新しい順)</option>
+                            <option value="date-oldest">作成日時 (古い順)</option>
+                        </select>
+                    </div>
+                    <div class="scripts-per-page-controls">
+                        <span class="icon-button" title="表示数"><i class="ri-list-check-2"></i></span>
+                        <select id="scriptsPerPage">
+                            <option value="12">12</option>
+                            <option value="24">24</option>
+                            <option value="36">36</option>
+                            <option value="60">60</option>
+                            <option value="120">120</option>
+                            <option value="all">全て</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="script-list" id="scriptList">
+                </div>
+
+            <div class="pagination" id="pagination">
+                </div>
+        </div>
+
+        <div class="sidebar-area">
+            <h2>タグ一覧</h2>
+            <div class="sidebar-tag-list" id="sidebarTagList">
+                </div>
+        </div>
+    </div>
+
+    <button id="toTopButton" title="ページトップへ">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const scriptList = document.getElementById('scriptList');
+        const sidebarTagList = document.getElementById('sidebarTagList');
+        const toTopButton = document.getElementById('toTopButton');
+        const sortOrderSelect = document.getElementById('sortOrder');
+        const scriptsPerPageSelect = document.getElementById('scriptsPerPage');
+        const paginationContainer = document.getElementById('pagination');
+        const gridButton = document.getElementById('gridButton');
+        const listButton = document.getElementById('listButton');
+        const refreshButton = document.getElementById('refreshButton'); // 新しく追加した更新ボタン
+
+        let allScripts = [];
+        let filteredScripts = [];
+        let activeTags = new Set();
+        let allUniqueTags = new Set();
+        let currentPage = 1;
+        let currentScriptsPerPage = parseInt(scriptsPerPageSelect.value);
+
+        // スクリプトデータを読み込む関数
+        async function fetchData() {
+            try {
+                const scriptsResponse = await fetch('scripts.json');
+                if (!scriptsResponse.ok) {
+                    throw new Error(`HTTP error! status: ${scriptsResponse.status} for scripts.json`);
+                }
+                const scriptsData = await scriptsResponse.json();
+                allScripts = scriptsData.map(script => ({
+                    ...script,
+                    createdAt: new Date(script.createdAt)
+                }));
+
+                console.log("Scripts loaded:", allScripts);
+
+                createTagButtonsInSidebar();
+                filterAndRenderScripts();
+            } catch (error) {
+                console.error("データの読み込みに失敗しました:", error);
+                scriptList.innerHTML = '<p style="color: red; text-align: center;">データを読み込めませんでした。ファイルパスを確認してください。</p>';
+            }
+        }
+
+        // スクリプトカードを生成する関数
+        function createScriptCard(script) {
+            const card = document.createElement('div');
+            card.classList.add('script-card');
+            card.dataset.tags = script.tags.join(',');
+
+            const createdAtFormatted = script.createdAt.toLocaleDateString();
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <h2>${script.name}</h2>
+                    <div class="tags">
+                        ${script.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+                <p class="description-text">${script.description}</p>
+                <div class="card-footer">
+                    <div class="info">
+                        更新: ${createdAtFormatted}
+                    </div>
+                    <div class="link">
+                        <a href="${script.url}" target="_blank" rel="noopener noreferrer">ダウンロード</a>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // 全てのユニークなタグを収集してサイドバーにボタンを生成する関数
+        function createTagButtonsInSidebar() {
+            allUniqueTags.clear();
+            allScripts.forEach(script => {
+                script.tags.forEach(tag => allUniqueTags.add(tag.trim()));
+            });
+
+            sidebarTagList.innerHTML = '';
+
+            const sortedTags = Array.from(allUniqueTags).sort();
+
+            sortedTags.forEach(tag => {
+                const button = document.createElement('button');
+                button.textContent = tag;
+                button.classList.add('tag-button');
+                if (activeTags.has(tag.toLowerCase())) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    toggleTag(tag.toLowerCase(), button);
+                    updateSearchInputWithTags();
+                    filterAndRenderScripts();
+                });
+                sidebarTagList.appendChild(button);
+            });
+        }
+
+        // カード内のタグをクリックした時の処理
+        function addTagClickListeners() {
+            document.querySelectorAll('.script-card .tag').forEach(tagSpan => {
+                const oldListener = tagSpan.__clickListener;
+                if (oldListener) {
+                    tagSpan.removeEventListener('click', oldListener);
+                }
+
+                const newListener = (event) => {
+                    const clickedTag = event.target.textContent.trim();
+                    let currentSearchText = searchInput.value;
+                    const existingTags = currentSearchText.toLowerCase().split(/\s+/).filter(term => term.startsWith('#')).map(t => t.substring(1));
+
+                    if (!existingTags.includes(clickedTag.toLowerCase())) {
+                        searchInput.value = (currentSearchText.trim() + ' #' + clickedTag).trim();
+                        filterAndRenderScripts();
+                    }
+                };
+                tagSpan.addEventListener('click', newListener);
+                tagSpan.__clickListener = newListener;
+            });
+        }
+
+        function toggleTag(tag, button) {
+            if (activeTags.has(tag)) {
+                activeTags.delete(tag);
+                if (button) button.classList.remove('active');
+            } else {
+                activeTags.add(tag);
+                if (button) button.classList.add('active');
+            }
+        }
+
+        function updateSearchInputWithTags() {
+            let currentText = searchInput.value;
+            let currentKeywords = [];
+            currentText.split(/\s+/).forEach(term => {
+                if (!term.startsWith('#') && term !== '') {
+                    currentKeywords.push(term);
+                }
+            });
+
+            let newSearchText = currentKeywords.join(' ');
+            if (newSearchText) {
+                newSearchText += ' ';
+            }
+            newSearchText += Array.from(activeTags).map(tag => '#' + tag).join(' ');
+
+            searchInput.value = newSearchText.trim();
+        }
+
+        // フィルター、ソート、ページネーションをまとめて処理し、レンダリングするメイン関数
+        function filterAndRenderScripts() {
+            let tempFilteredScripts = allScripts.filter(script => {
+                const searchText = searchInput.value.toLowerCase().trim();
+                const searchTerms = searchText.split(/\s+/).filter(term => term !== '');
+
+                let matchesKeyword = true;
+                let matchesTags = true;
+
+                // キーワード検索のチェック
+                if (searchText) {
+                    const scriptName = script.name.toLowerCase();
+                    const scriptDescription = script.description.toLowerCase();
+                    const scriptTagsLower = script.tags.map(tag => tag.toLowerCase());
+
+                    const keywords = searchTerms.filter(term => !term.startsWith('#'));
+                    const searchInputTags = searchTerms.filter(term => term.startsWith('#')).map(t => t.substring(1));
+
+                    if (keywords.length > 0) {
+                        matchesKeyword = keywords.every(kw => scriptName.includes(kw) || scriptDescription.includes(kw));
+                    }
+
+                    const combinedActiveTags = new Set([...activeTags, ...searchInputTags]);
+
+                    if (combinedActiveTags.size > 0) {
+                        matchesTags = Array.from(combinedActiveTags).every(tag => scriptTagsLower.includes(tag));
+                    } else {
+                        matchesTags = true;
+                    }
+                }
+
+                return matchesKeyword && matchesTags;
+            });
+
+            // ソート
+            const sortOrder = sortOrderSelect.value;
+            tempFilteredScripts.sort((a, b) => {
+                if (sortOrder === 'name-asc') {
+                    return a.name.localeCompare(b.name);
+                } else if (sortOrder === 'name-desc') {
+                    return b.name.localeCompare(a.name);
+                } else if (sortOrder === 'date-newest') {
+                    return b.createdAt.getTime() - a.createdAt.getTime();
+                } else if (sortOrder === 'date-oldest') {
+                    return a.createdAt.getTime() - b.createdAt.getTime();
+                }
+                return 0;
+            });
+
+            filteredScripts = tempFilteredScripts;
+
+            renderScripts();
+            renderPagination();
+        }
+
+        // スクリプトをレンダリングする関数 (現在のページに基づいて)
+        function renderScripts() {
+            scriptList.classList.add('fade-out');
+
+            setTimeout(() => {
+                scriptList.innerHTML = '';
+
+                let scriptsToDisplay = filteredScripts;
+                if (currentScriptsPerPage !== 'all') {
+                    const startIndex = (currentPage - 1) * currentScriptsPerPage;
+                    const endIndex = startIndex + currentScriptsPerPage;
+                    scriptsToDisplay = filteredScripts.slice(startIndex, endIndex);
+                }
+
+                if (scriptsToDisplay.length === 0) {
+                    scriptList.innerHTML = '<p style="text-align: center; color: #ccc;">条件に合うスクリプトは見つかりませんでした。</p>';
+                } else {
+                    scriptsToDisplay.forEach(script => {
+                        scriptList.appendChild(createScriptCard(script));
+                    });
+                }
+                addTagClickListeners();
+
+                scriptList.classList.remove('fade-out');
+                scriptList.classList.add('fade-in');
+            }, 300);
+        }
+
+        // ページネーションをレンダリングする関数
+        function renderPagination() {
+            paginationContainer.innerHTML = '';
+            const totalPages = currentScriptsPerPage === 'all' ? 1 : Math.ceil(filteredScripts.length / currentScriptsPerPage);
+
+            if (totalPages <= 1 && currentScriptsPerPage !== 'all') {
+                return;
+            }
+
+            const maxPageButtons = 5;
+            let startPage, endPage;
+
+            if (totalPages <= maxPageButtons) {
+                startPage = 1;
+                endPage = totalPages;
+            } else {
+                startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+                endPage = Math.min(totalPages, currentPage + Math.floor(maxPageButtons / 2));
+
+                if (endPage - startPage + 1 < maxPageButtons) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, totalPages - maxPageButtons + 1);
+                    }
+                }
+            }
+
+            // Prevボタン
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Prev';
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderScripts();
+                    renderPagination();
+                    toTopButton.click();
+                }
+            });
+            paginationContainer.appendChild(prevButton);
+
+            // 最初のページ (必要なら)
+            if (startPage > 1) {
+                const firstPageButton = document.createElement('button');
+                firstPageButton.textContent = '1';
+                firstPageButton.addEventListener('click', () => {
+                    currentPage = 1;
+                    renderScripts();
+                    renderPagination();
+                    toTopButton.click();
+                });
+                paginationContainer.appendChild(firstPageButton);
+                if (startPage > 2) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    paginationContainer.appendChild(dots);
+                }
+            }
+
+            // ページ番号ボタン
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    renderScripts();
+                    renderPagination();
+                    toTopButton.click();
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+
+            // 最後のページ (必要なら)
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    paginationContainer.appendChild(dots);
+                }
+                const lastPageButton = document.createElement('button');
+                lastPageButton.textContent = totalPages;
+                lastPageButton.addEventListener('click', () => {
+                    currentPage = totalPages;
+                    renderScripts();
+                    renderPagination();
+                    toTopButton.click();
+                });
+                paginationContainer.appendChild(lastPageButton);
+            }
+
+            // Nextボタン
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Next';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderScripts();
+                    renderPagination();
+                    toTopButton.click();
+                }
+            });
+            paginationContainer.appendChild(nextButton);
+        }
+
+        // スクロール時のページトップボタン表示/非表示
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                toTopButton.classList.add('show');
+            } else {
+                toTopButton.classList.remove('show');
+            }
+        });
+
+        // ページトップに戻るボタンのクリックイベント
+        toTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // イベントリスナーを設定するよ
+        searchButton.addEventListener('click', () => {
+            currentPage = 1;
+            filterAndRenderScripts();
+        });
+
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                currentPage = 1;
+                filterAndRenderScripts();
+            }
+        });
+
+        sortOrderSelect.addEventListener('change', () => {
+            currentPage = 1;
+            filterAndRenderScripts();
+        });
+
+        scriptsPerPageSelect.addEventListener('change', () => {
+            currentScriptsPerPage = parseInt(scriptsPerPageSelect.value);
+            currentPage = 1;
+            filterAndRenderScripts();
+        });
+
+        // グリッド/リスト表示切り替えボタンのイベントリスナー
+        gridButton.addEventListener('click', () => {
+            scriptList.classList.remove('list-mode');
+            gridButton.classList.add('active');
+            listButton.classList.remove('active');
+            renderScripts();
+        });
+
+        listButton.addEventListener('click', () => {
+            scriptList.classList.add('list-mode');
+            listButton.classList.add('active');
+            gridButton.classList.remove('active');
+            renderScripts();
+        });
+
+        // 更新ボタンのイベントリスナー
+        refreshButton.addEventListener('click', () => {
+            console.log('Refresh button clicked! Reloading scripts data...');
+            currentPage = 1; // データを再読み込みしたら、最初のページに戻る
+            fetchData(); // スクリプトデータを再読み込みする
+        });
+
+        // ページが読み込まれたら初期化するよ
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            gridButton.classList.add('active');
+        });
+    </script>
+</body>
+</html>
