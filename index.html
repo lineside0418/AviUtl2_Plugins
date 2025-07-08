@@ -29,33 +29,32 @@
             padding: 30px 20px; /* 全体的なパディングを調整 */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            transition: background-color 0.3s, color 0.3s; /* ダークモード切り替えアニメーション */
+            /* transition: background-color 0.3s, color 0.3s; /* ダークモード切り替えアニメーション */ /* 削除 */
         }
 
-        /* ライトモードのスタイル */
-        body.light-mode {
-            background-color: #fff; /* 真っ白 */
+        /* ★ここからライトモード関連のCSSを削除するよ★ */
+        /* body.light-mode {
+            background-color: #fff;
             color: #333;
         }
 
-        /* ライトモード時の要素の色調整 */
         body.light-mode .main-layout-container {
-            background-color: transparent; /* 背景を透明に */
-            box-shadow: none; /* 影を削除 */
+            background-color: transparent;
+            box-shadow: none;
         }
         body.light-mode h1 {
             color: #222;
-            border-bottom: 1px solid #ccc; /* ライトモードのボーダー */
+            border-bottom: 1px solid #ccc;
             padding-bottom: 10px;
             margin-bottom: 30px;
         }
         body.light-mode .search-area,
         body.light-mode .sidebar-area {
-            background-color: transparent; /* 背景を透明に */
+            background-color: transparent;
             border-color: #ddd;
         }
         body.light-mode .search-area input {
-            background-color: #f0f0f0; /* 少しグレーに */
+            background-color: #f0f0f0;
             border-color: #ccc;
             color: #333;
         }
@@ -63,17 +62,17 @@
             color: #999;
         }
         body.light-mode .search-button {
-            background-color: #000; /* 黒 */
-            color: #fff; /* 白 */
+            background-color: #000;
+            color: #fff;
             border-color: #000;
         }
         body.light-mode .search-button:hover {
-            background-color: #333; /* 少しグレーに */
+            background-color: #333;
             color: #fff;
             border-color: #333;
         }
         body.light-mode .search-notice {
-            background-color: #f8f8f8; /* 少しグレーに */
+            background-color: #f8f8f8;
             border-color: #eee;
             color: #666;
         }
@@ -96,20 +95,14 @@
         body.light-mode .plugin-card p {
             color: #555;
         }
-        body.light-mode .card-header {
-            color: #222;
-        }
-        body.light-mode .description-text {
-            color: #555;
-        }
         body.light-mode .plugin-card .link a {
             background-color: #f0f0f0;
             color: #333;
             border-color: #ccc;
         }
         body.light-mode .plugin-card .link a:hover {
-            background-color: #000; /* 黒 */
-            color: #fff; /* 白 */
+            background-color: #000;
+            color: #fff;
             border-color: #000;
         }
         body.light-mode .plugin-card .tag {
@@ -134,26 +127,26 @@
             color: #333;
         }
         body.light-mode .sidebar-tag-list button.active {
-            background-color: #000; /* 黒 */
-            color: #fff; /* 白 */
+            background-color: #000;
+            color: #fff;
             border-color: #000;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
         body.light-mode .controls-row {
             border-color: #ddd;
         }
-        body.light-mode .controls-row .icon-button { /* ソート・表示数アイコン（クリック不可） */
+        body.light-mode .controls-row .icon-button {
             color: #666;
         }
-        body.light-mode .view-mode-controls button { /* グリッド/リスト切り替えボタン */
+        body.light-mode .view-mode-controls button {
             background-color: #f0f0f0;
             border-color: #ccc;
             color: #333;
         }
         body.light-mode .view-mode-controls button.active {
-            background-color: #000; /* 黒 */
+            background-color: #000;
             border-color: #000;
-            color: #fff; /* 白 */
+            color: #fff;
         }
         body.light-mode .pagination button {
             background-color: #eee;
@@ -165,17 +158,17 @@
             color: #333;
         }
         body.light-mode .pagination button.active {
-            background-color: #000; /* 黒 */
-            color: #fff; /* 白 */
+            background-color: #000;
+            color: #fff;
             border-color: #000;
         }
         body.light-mode #toTopButton {
-            background-color: #000; /* 黒 */
-            color: #fff; /* 白 */
+            background-color: #000;
+            color: #fff;
             border-color: #000;
         }
         body.light-mode #toTopButton:hover {
-            background-color: #333; /* 少しグレーに */
+            background-color: #333;
             color: #fff;
             border-color: #333;
         }
@@ -188,23 +181,30 @@
             background-color: #ccc;
         }
         body.light-mode .sidebar-area {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* サイドバーに影を追加 */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
         body.light-mode .search-notice {
-            background-color: #f8f8f8; /* 少しグレーに */
+            background-color: #f8f8f8;
             border-color: #eee;
             color: #666;
         }
         body.light-mode .search-notice strong {
             color: #333;
         }
+        body.light-mode .search-area::after {
+            background-color: #ddd;
+        }
+        body.light-mode .sidebar-area {
+            border-top: 1px solid #ddd;
+        } */
+        /* ★ここまで削除★ */
 
 
-        /* ダークモード切り替えボタン */
-        #darkModeToggle {
+        /* ★#darkModeToggleに関するCSSも削除するよ★ */
+        /* #darkModeToggle {
             position: fixed;
-            top: 20px; /* 少し内側に */
-            right: 20px; /* 少し内側に */
+            top: 20px;
+            right: 20px;
             background-color: #333;
             color: #fff;
             border: 1px solid #555;
@@ -222,7 +222,8 @@
         }
         #darkModeToggle:hover {
             background-color: #555;
-        }
+        } */
+
 
         /* ページトップに戻るボタン */
         #toTopButton {
@@ -258,7 +259,6 @@
         .main-layout-container {
             display: flex;
             width: 100%;
-            /* max-width: 1200px; */ /* ここを削除したよ！ */
             height: auto; /* 高さを自動調整 */
             gap: 0; /* カラム間のギャップをなくす */
             background-color: transparent; /* 背景を透明に */
@@ -310,9 +310,6 @@
             width: 95%; /* 線の幅を調整 */
             height: 1px;
             background-color: #333; /* ダークモードの線 */
-        }
-        body.light-mode .search-area::after {
-            background-color: #ddd; /* ライトモードの線 */
         }
 
 
@@ -455,11 +452,6 @@
             background-color: #000; /* 黒 */
             border-color: #000;
             color: #fff; /* 白 */
-        }
-        body.light-mode .view-mode-controls button.active {
-            background-color: #000;
-            border-color: #000;
-            color: #fff;
         }
 
 
@@ -715,11 +707,6 @@
             border-color: #000;
             color: #fff; /* 白 */
         }
-        body.light-mode .pagination button.active {
-            background-color: #000;
-            border-color: #000;
-            color: #fff;
-        }
 
         /* 右側のサイドバー（タグ一覧） */
         .sidebar-area {
@@ -734,10 +721,6 @@
             height: 100vh; /* 画面いっぱいに広げる */
             overflow-y: auto; /* タグが多い場合にスクロールできるように */
             z-index: 0; /* コンテンツエリアより奥に */
-        }
-        body.light-mode .sidebar-area {
-            background-color: #f8f8f8; /* ライトモードのサイドバー背景 */
-            border-left: 1px solid #ddd;
         }
 
 
@@ -785,11 +768,6 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
             transform: scale(1.05);
         }
-        body.light-mode .sidebar-tag-list button.active {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
 
         /* レスポンシブ対応 */
         @media (max-width: 1200px) {
@@ -811,20 +789,18 @@
                 border-top: 1px solid #333; /* 上に線 */
                 padding: 30px 20px; /* パディングを調整 */
             }
-            body.light-mode .sidebar-area {
-                border-top: 1px solid #ddd;
-            }
 
             .sidebar-area h2 {
                 margin-bottom: 20px;
             }
-            #darkModeToggle { /* レスポンシブでも位置調整 */
+            /* ★#darkModeToggleに関するレスポンシブCSSも削除するよ★ */
+            /* #darkModeToggle {
                 top: 15px;
                 right: 15px;
                 width: 40px;
                 height: 40px;
                 font-size: 1.2em;
-            }
+            } */
             #toTopButton {
                 width: 50px;
                 height: 50px;
@@ -945,9 +921,6 @@
     </style>
 </head>
 <body>
-    <div id="darkModeToggle">
-        <i class="ri-sun-line"></i> </div>
-
     <div class="main-layout-container">
         <div class="content-area">
             <h1>AviUtl2 プラグイン一覧</h1>
@@ -1018,7 +991,7 @@
         const searchButton = document.getElementById('searchButton');
         const pluginList = document.getElementById('pluginList');
         const sidebarTagList = document.getElementById('sidebarTagList');
-        const darkModeToggle = document.getElementById('darkModeToggle');
+        // const darkModeToggle = document.getElementById('darkModeToggle'); /* 削除 */
         const toTopButton = document.getElementById('toTopButton');
         const sortOrderSelect = document.getElementById('sortOrder');
         const pluginsPerPageSelect = document.getElementById('pluginsPerPage');
@@ -1375,29 +1348,30 @@
             });
         });
 
-        // ダークモード切り替え
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isLightMode = document.body.classList.contains('light-mode');
-            localStorage.setItem('darkMode', isLightMode ? 'off' : 'on');
+        /* ★ここからダークモード切り替えに関するJSを削除するよ★ */
+        // darkModeToggle.addEventListener('click', () => {
+        //     document.body.classList.toggle('light-mode');
+        //     const isLightMode = document.body.classList.contains('light-mode');
+        //     localStorage.setItem('darkMode', isLightMode ? 'off' : 'on');
 
-            if (isLightMode) {
-                darkModeToggle.querySelector('i').className = 'ri-moon-line';
-            } else {
-                darkModeToggle.querySelector('i').className = 'ri-sun-line';
-            }
-        });
+        //     if (isLightMode) {
+        //         darkModeToggle.querySelector('i').className = 'ri-moon-line';
+        //     } else {
+        //         darkModeToggle.querySelector('i').className = 'ri-sun-line';
+        //     }
+        // });
 
-        // ページロード時に保存されたダークモード設定を適用
-        function applySavedDarkMode() {
-            if (localStorage.getItem('darkMode') === 'off') {
-                document.body.classList.add('light-mode');
-                darkModeToggle.querySelector('i').className = 'ri-moon-line';
-            } else {
-                document.body.classList.remove('light-mode');
-                darkModeToggle.querySelector('i').className = 'ri-sun-line';
-            }
-        }
+        // // ページロード時に保存されたダークモード設定を適用
+        // function applySavedDarkMode() {
+        //     if (localStorage.getItem('darkMode') === 'off') {
+        //         document.body.classList.add('light-mode');
+        //         darkModeToggle.querySelector('i').className = 'ri-moon-line';
+        //     } else {
+        //         document.body.classList.remove('light-mode');
+        //         darkModeToggle.querySelector('i').className = 'ri-sun-line';
+        //     }
+        // }
+        /* ★ここまで削除★ */
 
         // イベントリスナーを設定するよ
         searchButton.addEventListener('click', () => {
@@ -1440,7 +1414,7 @@
 
         // ページが読み込まれたら初期化するよ
         document.addEventListener('DOMContentLoaded', () => {
-            applySavedDarkMode(); // ダークモード設定適用
+            // applySavedDarkMode(); // ダークモード設定適用 /* 削除 */
             fetchData(); // プラグインデータを読み込む
             // 初期表示でグリッドモードをアクティブにする
             gridButton.classList.add('active');
