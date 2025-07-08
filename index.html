@@ -468,57 +468,62 @@
             gap: 15px; /* リストモードの隙間を狭く */
         }
         .plugin-list.list-mode .plugin-card {
-            display: flex;
-            flex-direction: row; /* 横並びにする */
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr; /* 左: タイトル・説明、右: タグ・日時・リンク */
+            grid-template-rows: auto auto; /* 2行 */
             padding: 15px 20px;
-            gap: 15px; /* カード内の要素の隙間 */
-            flex-wrap: wrap; /* 要素が収まらない場合に折り返す */
+            gap: 5px 15px; /* 行と列の隙間 */
+            align-items: center;
         }
         .plugin-list.list-mode .plugin-card h2 {
             margin-top: 0;
-            margin-bottom: 0; /* マージンをリセット */
-            font-size: 1.3em;
-            white-space: normal; /* 折り返しを許可 */
-            flex-basis: 100%; /* 1行を占有 */
-            order: 1; /* タイトルを一番上 */
-        }
-        .plugin-list.list-mode .plugin-card p {
             margin-bottom: 0;
-            font-size: 0.9em;
-            flex-grow: 1; /* 説明文が伸びるように */
-            overflow: hidden; /* はみ出した部分は隠す */
-            text-overflow: ellipsis; /* ...で省略 */
-            white-space: nowrap; /* 一行に */
-            flex-basis: 100%; /* 1行を占有 */
-            order: 2; /* 説明文をタイトルとタグの間 */
-            color: #ccc; /* 説明文の色調整 */
+            font-size: 1.35em; /* フォントを少し大きく */
+            white-space: normal;
+            grid-column: 1 / 2; /* 1列目 */
+            grid-row: 1 / 2; /* 1行目 */
+            line-height: 1.2;
+        }
+        .plugin-list.list-mode .plugin-card p.description-text { /* 説明文にクラス追加 */
+            margin-bottom: 0;
+            font-size: 0.95em; /* フォントを少し大きく */
+            white-space: normal; /* 折り返しを許可 */
+            overflow: visible; /* はみ出しを許可 */
+            text-overflow: clip; /* ...を消す */
+            grid-column: 1 / 2; /* 1列目 */
+            grid-row: 2 / 3; /* 2行目 */
+            color: #ccc;
         }
         .plugin-list.list-mode .plugin-card .tags {
             margin-top: 0;
-            font-size: 0.75em; /* タグを小さく */
+            font-size: 0.8em; /* タグを小さく */
             gap: 5px;
-            flex-shrink: 0; /* 縮まないように */
-            order: 3; /* タグをタイトルの右 */
-            align-self: flex-start; /* 上寄せ */
-            margin-left: auto; /* 右寄せ */
+            grid-column: 2 / 3; /* 2列目 */
+            grid-row: 1 / 2; /* 1行目 */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end; /* 右寄せ */
+            align-items: center;
         }
         .plugin-list.list-mode .plugin-card .tag {
             padding: 3px 8px; /* タグのパディングを小さく */
         }
         .plugin-list.list-mode .plugin-card .info {
-            font-size: 0.75em; /* 更新日時を小さく */
+            font-size: 0.8em; /* 更新日時を小さく */
             color: #888;
             margin-bottom: 0;
-            flex-shrink: 0; /* 縮まないように */
-            order: 4; /* 更新日時をリンクの左 */
-            margin-left: auto; /* 右寄せ */
+            grid-column: 2 / 3; /* 2列目 */
+            grid-row: 2 / 3; /* 2行目 */
+            text-align: right; /* 右寄せ */
             white-space: nowrap; /* 折り返し禁止 */
+            align-self: flex-end; /* 下寄せ */
         }
         .plugin-list.list-mode .plugin-card .link {
-            flex-shrink: 0; /* 縮まないように */
-            order: 5; /* リンクを一番右 */
-            align-self: center; /* 中央寄せ */
+            grid-column: 2 / 3; /* 2列目 */
+            grid-row: 2 / 3; /* 2行目 */
+            justify-self: flex-end; /* 右寄せ */
+            align-self: flex-end; /* 下寄せ */
+            margin-left: 10px; /* 更新日時とリンクの隙間 */
         }
         .plugin-list.list-mode .plugin-card .link a {
             font-size: 0.85em; /* リンクの文字を小さく */
@@ -775,34 +780,36 @@
 
             /* リストモードのレスポンシブ調整 */
             .plugin-list.list-mode .plugin-card {
-                flex-direction: column; /* 縦並びに戻す */
-                align-items: flex-start;
-                gap: 10px;
+                grid-template-columns: 1fr; /* 1列に戻す */
+                grid-template-rows: auto auto auto auto; /* 行を再定義 */
+                gap: 5px 0; /* ギャップを調整 */
             }
             .plugin-list.list-mode .plugin-card h2 {
-                width: auto; /* 幅を自動に */
-                white-space: normal; /* 折り返しを許可 */
-                margin-bottom: 5px;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                font-size: 1.3em; /* 少し小さく */
             }
-            .plugin-list.list-mode .plugin-card p {
-                white-space: normal; /* 折り返しを許可 */
-                text-overflow: clip; /* ...を消す */
-                overflow: visible; /* はみ出しを許可 */
-            }
-            .plugin-list.list-mode .plugin-card .link {
-                align-self: flex-end; /* 右下に配置 */
+            .plugin-list.list-mode .plugin-card p.description-text {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+                font-size: 0.9em; /* 少し小さく */
             }
             .plugin-list.list-mode .plugin-card .tags {
-                margin-left: 0; /* 左寄せに戻す */
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+                justify-content: flex-start; /* 左寄せに戻す */
             }
             .plugin-list.list-mode .plugin-card .info {
-                margin-left: 0; /* 左寄せに戻す */
+                grid-column: 1 / 2;
+                grid-row: 4 / 5;
+                text-align: left; /* 左寄せに戻す */
             }
-
-            .search-area::after { /* レスポンシブでは線を消すか調整 */
-                width: 100%;
-                left: 0;
-                transform: none;
+            .plugin-list.list-mode .plugin-card .link {
+                grid-column: 1 / 2;
+                grid-row: 4 / 5;
+                justify-self: flex-end; /* 右寄せ維持 */
+                align-self: flex-end; /* 下寄せ維持 */
+                margin-left: 0;
             }
         }
 
@@ -838,22 +845,24 @@
             }
             /* リストモードのモバイル調整 */
             .plugin-list.list-mode .plugin-card {
-                flex-direction: column;
-                align-items: flex-start;
+                grid-template-columns: 1fr;
                 gap: 5px;
             }
             .plugin-list.list-mode .plugin-card h2 {
-                font-size: 1.2em;
+                font-size: 1.1em;
             }
-            .plugin-list.list-mode .plugin-card p {
-                font-size: 0.85em;
+            .plugin-list.list-mode .plugin-card p.description-text {
+                font-size: 0.8em;
             }
-            .plugin-list.list-mode .plugin-card .tags,
-            .plugin-list.list-mode .plugin-card .info,
-            .plugin-list.list-mode .plugin-card .link {
-                align-self: flex-start; /* 全部左寄せに */
-                margin-left: 0;
-                order: unset; /* orderをリセット */
+            .plugin-list.list-mode .plugin-card .tags {
+                font-size: 0.7em;
+            }
+            .plugin-list.list-mode .plugin-card .info {
+                font-size: 0.7em;
+            }
+            .plugin-list.list-mode .plugin-card .link a {
+                font-size: 0.75em;
+                padding: 5px 10px;
             }
         }
     </style>
@@ -976,19 +985,16 @@
             card.classList.add('plugin-card');
             card.dataset.tags = plugin.tags.join(',');
 
-            // リストモードとグリッドモードでHTML構造を変えることで、CSSのorderプロパティが活きるようにする
-            // グリッドモードではdescription, info, tags, link の順
-            // リストモードではh2, p, tags, info, link の順
-
             // 更新日時を整形
             const updatedAtFormatted = plugin.updatedAt.toLocaleDateString();
 
+            // リストモードとグリッドモードでHTML構造が共通化されたため、CSSでレイアウトを制御する
             card.innerHTML = `
                 <h2>${plugin.name}</h2>
-                <p class="description-text">${plugin.description}</p>
                 <div class="tags">
                     ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>
+                <p class="description-text">${plugin.description}</p>
                 <div class="info">
                     更新: ${updatedAtFormatted}
                 </div>
