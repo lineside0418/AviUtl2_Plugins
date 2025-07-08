@@ -19,5 +19,19 @@
         "url": "https://github.com/amate/InputPipePlugin",
         "tags": ["必須", "入力"],
         "createdAt": "2025-07-09T00:02:00Z"
+    },
+    {
+        "name": "DirectShow File Reader",
+        "description": "AviUtlで読み込むことのできるファイルの種類を増やすことができる入力プラグイン",
+        "url": "http://videoinfo.tenchi.ne.jp/?DirectShow%20File%20Reader%20%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3%20for%20AviUtl",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-09T00:18:00Z"
+    },
+    {
+        "name": "ffmpegOut",
+        "description": "ffmpegによるAviUtlの動画の書き出しを可能にするプラグイン",
+        "url": "https://github.com/rigaya/ffmpegOut",
+        "tags": ["必須", "出力", "ffmpeg"],
+        "createdAt": "2025-07-09T00:18:00Z"
     }
 ]
