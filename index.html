@@ -28,7 +28,7 @@
             min-height: 100vh;
             padding: 30px 20px; /* 全体的なパディングを調整 */
             -webkit-font-smoothing: antialiased;
-            -moz-osx-osx-font-smoothing: grayscale;
+            -moz-osx-font-smoothing: grayscale;
             transition: background-color 0.3s, color 0.3s; /* ダークモード切り替えアニメーション */
         }
 
@@ -91,7 +91,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
         body.light-mode .plugin-card h2 {
-            color: #222; /* ★ここを修正したよ！★ */
+            color: #222;
         }
         body.light-mode .plugin-card p {
             color: #555;
@@ -252,6 +252,7 @@
         .main-layout-container {
             display: flex;
             width: 100%;
+            /* max-width: 1200px; */ /* ここを削除したよ！ */
             height: auto; /* 高さを自動調整 */
             gap: 0; /* カラム間のギャップをなくす */
             background-color: transparent; /* 背景を透明に */
@@ -1038,8 +1039,7 @@
                 const pluginsData = await pluginsResponse.json();
                 allPlugins = pluginsData.map(plugin => ({
                     ...plugin,
-                    createdAt: new Date(plugin.createdAt),
-                    updatedAt: new Date(plugin.updatedAt)
+                    createdAt: new Date(plugin.createdAt) // createdAtだけをDateオブジェクトに変換
                 }));
 
                 console.log("Plugins loaded:", allPlugins);
@@ -1058,8 +1058,8 @@
             card.classList.add('plugin-card');
             card.dataset.tags = plugin.tags.join(',');
 
-            // 更新日時を整形
-            const updatedAtFormatted = plugin.updatedAt.toLocaleDateString();
+            // 更新日時を整形（createdAtを参照するように変更）
+            const createdAtFormatted = plugin.createdAt.toLocaleDateString();
 
             card.innerHTML = `
                 <div class="card-header">
@@ -1071,7 +1071,7 @@
                 <p class="description-text">${plugin.description}</p>
                 <div class="card-footer">
                     <div class="info">
-                        更新: ${updatedAtFormatted}
+                        更新: ${createdAtFormatted}
                     </div>
                     <div class="link">
                         <a href="${plugin.url}" target="_blank" rel="noopener noreferrer">ダウンロード</a>
@@ -1201,9 +1201,9 @@
                 } else if (sortOrder === 'name-desc') {
                     return b.name.localeCompare(a.name);
                 } else if (sortOrder === 'date-newest') {
-                    return b.createdAt.getTime() - a.createdAt.getTime();
+                    return b.createdAt.getTime() - a.createdAt.getTime(); // createdAtを参照
                 } else if (sortOrder === 'date-oldest') {
-                    return a.createdAt.getTime() - b.createdAt.getTime();
+                    return a.createdAt.getTime() - b.createdAt.getTime(); // createdAtを参照
                 }
                 return 0;
             });
