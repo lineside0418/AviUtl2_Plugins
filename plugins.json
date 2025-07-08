@@ -31,7 +31,7 @@
         "name": "ffmpegOut",
         "description": "ffmpegによるAviUtlの動画の書き出しを可能にするプラグイン",
         "url": "https://github.com/rigaya/ffmpegOut",
-        "tags": ["必須", "出力", "ffmpeg"],
+        "tags": ["必須", "出力", "FFmpeg"],
         "createdAt": "2025-07-09T00:18:00Z"
     },
     {
