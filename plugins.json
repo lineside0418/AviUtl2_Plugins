@@ -1,98 +1,16 @@
 [
     {
-        "name": "拡張編集プラグイン",
-        "description": "AviUtlで動画編集の可能性を広げる、必須のタイムライン編集プラグインだよ！色々なエフェクトやオブジェクトが使えるようになるんだ。",
-        "url": "https://example.com/extended-editor",
-        "tags": ["必須", "タイムライン", "編集"],
-        "createdAt": "2010-01-01T10:00:00Z",
-        "updatedAt": "2023-04-15T14:30:00Z"
+        "name": "MP4Exporter",
+        "description": "AviUtlで動画をMP4出力できるようになるプラグイン",
+        "url": "https://apps.esugo.net/aviutl2-mp4exporter/",
+        "tags": ["必須", "出力"],
+        "createdAt": "2025-07-08T11:42:00Z"
     },
     {
-        "name": "L-SMASH Works",
-        "description": "多様な形式の動画や音声ファイルをAviUtlで読み込めるようにする入力プラグインだよ。これがあれば、大体のファイルが開けるようになるはず！",
-        "url": "https://example.com/lsmash-works",
-        "tags": ["入力", "互換性", "動画"],
-        "createdAt": "2012-05-20T11:00:00Z",
-        "updatedAt": "2024-02-10T09:15:00Z"
+        "name": "L-SMASH-Works-Auto-Builds",
+        "description": "AviUtlで読み込むことのできるファイルの種類を増やすことができるプラグイン",
+        "url": "https://github.com/Mr-Ojii/L-SMASH-Works-Auto-Builds",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-08T11:45:00Z"
     },
-    {
-        "name": "x264guiEx",
-        "description": "高品質なH.264/AVC形式で動画を出力するためのプラグイン。これで綺麗に動画を書き出せるようになるよ！",
-        "url": "https://example.com/x264guiex",
-        "tags": ["出力", "エンコード", "動画"],
-        "createdAt": "2011-03-10T13:00:00Z",
-        "updatedAt": "2023-11-01T16:45:00Z"
-    },
-    {
-        "name": "Auls",
-        "description": "テキストや図形に動きをつけたり、画面全体にフィルターをかけたりできるエフェクト系のスクリプトプラグインだよ！",
-        "url": "https://example.com/auls-script",
-        "tags": ["スクリプト", "エフェクト", "演出", "テキスト"],
-        "createdAt": "2015-08-01T09:00:00Z",
-        "updatedAt": "2022-09-20T11:00:00Z"
-    },
-    {
-        "name": "DirectShow File Reader",
-        "description": "DirectShowに対応した音声・動画ファイルを読み込めるようにするプラグインだよ。",
-        "url": "https://example.com/directshow",
-        "tags": ["音声", "入力", "互換性"],
-        "createdAt": "2009-11-05T14:00:00Z",
-        "updatedAt": "2021-06-01T10:00:00Z"
-    },
-    {
-        "name": "3D Custom",
-        "description": "AviUtlで手軽に3Dオブジェクトを扱えるようになるプラグイン。モデルを読み込んだり、立体的な表現が可能になるよ！",
-        "url": "https://example.com/3d-custom",
-        "tags": ["エフェクト", "演出", "3D"],
-        "createdAt": "2018-02-14T10:00:00Z",
-        "updatedAt": "2024-01-05T17:00:00Z"
-    },
-    {
-        "name": "拡張ツールバー",
-        "description": "よく使う機能をツールバーにまとめて、作業効率をアップさせる拡張機能だよ。",
-        "url": "https://example.com/toolbar",
-        "tags": ["拡張機能", "ユーティリティ"],
-        "createdAt": "2017-07-22T08:00:00Z",
-        "updatedAt": "2023-03-01T12:00:00Z"
-    },
-    {
-        "name": "Audio Filter",
-        "description": "音声に様々なエフェクトをかけられるプラグインだよ。ノイズ除去や音量調整もできるんだ。",
-        "url": "https://example.com/audio-filter",
-        "tags": ["音声", "エフェクト"],
-        "createdAt": "2014-06-10T11:00:00Z",
-        "updatedAt": "2022-05-18T14:00:00Z"
-    },
-    {
-        "name": "Pixel Shader Effect",
-        "description": "GPUの力を借りて高速な描画やユニークなビジュアルエフェクトを実現するよ！",
-        "url": "https://example.com/pixel-shader",
-        "tags": ["エフェクト", "演出", "GPU"],
-        "createdAt": "2016-09-01T15:00:00Z",
-        "updatedAt": "2023-07-20T10:00:00Z"
-    },
-    {
-        "name": "Physics Engine",
-        "description": "オブジェクトに物理演算を適用して、リアルな動きを表現できるプラグインだよ。",
-        "url": "https://example.com/physics-engine",
-        "tags": ["エフェクト", "演出", "物理演算"],
-        "createdAt": "2019-04-01T10:00:00Z",
-        "updatedAt": "2024-03-10T16:00:00Z"
-    },
-    {
-        "name": "Live2D Plugin",
-        "description": "Live2DモデルをAviUtl上で動かせるようになるよ。キャラクターを生き生きとさせよう！",
-        "url": "https://example.com/live2d-plugin",
-        "tags": ["キャラ", "演出", "Live2D"],
-        "createdAt": "2020-01-20T12:00:00Z",
-        "updatedAt": "2024-04-01T11:00:00Z"
-    },
-    {
-        "name": "VR Plugin",
-        "description": "VR動画の編集や、VR空間での演出に対応するためのプラグインだよ。",
-        "url": "https://example.com/vr-plugin",
-        "tags": ["動画", "VR", "演出"],
-        "createdAt": "2021-03-05T09:30:00Z",
-        "updatedAt": "2024-05-25T13:00:00Z"
-    }
 ]
