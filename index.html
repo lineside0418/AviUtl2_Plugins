@@ -29,201 +29,7 @@
             padding: 30px 20px; /* 全体的なパディングを調整 */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            /* transition: background-color 0.3s, color 0.3s; /* ダークモード切り替えアニメーション */ /* 削除 */
         }
-
-        /* ★ここからライトモード関連のCSSを削除するよ★ */
-        /* body.light-mode {
-            background-color: #fff;
-            color: #333;
-        }
-
-        body.light-mode .main-layout-container {
-            background-color: transparent;
-            box-shadow: none;
-        }
-        body.light-mode h1 {
-            color: #222;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-        body.light-mode .search-area,
-        body.light-mode .sidebar-area {
-            background-color: transparent;
-            border-color: #ddd;
-        }
-        body.light-mode .search-area input {
-            background-color: #f0f0f0;
-            border-color: #ccc;
-            color: #333;
-        }
-        body.light-mode .search-area input::placeholder {
-            color: #999;
-        }
-        body.light-mode .search-button {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
-        body.light-mode .search-button:hover {
-            background-color: #333;
-            color: #fff;
-            border-color: #333;
-        }
-        body.light-mode .search-notice {
-            background-color: #f8f8f8;
-            border-color: #eee;
-            color: #666;
-        }
-        body.light-mode .search-notice strong {
-            color: #333;
-        }
-        body.light-mode .plugin-card {
-            background-color: #fff;
-            border-color: #ddd;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        }
-        body.light-mode .plugin-card:hover {
-            background-color: #f5f5f5;
-            border-color: #ccc;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-        body.light-mode .plugin-card h2 {
-            color: #222;
-        }
-        body.light-mode .plugin-card p {
-            color: #555;
-        }
-        body.light-mode .plugin-card .link a {
-            background-color: #f0f0f0;
-            color: #333;
-            border-color: #ccc;
-        }
-        body.light-mode .plugin-card .link a:hover {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
-        body.light-mode .plugin-card .tag {
-            background-color: #e0e0e0;
-            color: #666;
-            border-color: #ccc;
-        }
-        body.light-mode .plugin-card .tag:hover {
-            background-color: #ccc;
-            color: #333;
-        }
-        body.light-mode .sidebar-area h2 {
-            color: #222;
-        }
-        body.light-mode .sidebar-tag-list button {
-            background-color: #eee;
-            color: #333;
-            border-color: #ccc;
-        }
-        body.light-mode .sidebar-tag-list button:hover {
-            background-color: #ccc;
-            color: #333;
-        }
-        body.light-mode .sidebar-tag-list button.active {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
-        body.light-mode .controls-row {
-            border-color: #ddd;
-        }
-        body.light-mode .controls-row .icon-button {
-            color: #666;
-        }
-        body.light-mode .view-mode-controls button {
-            background-color: #f0f0f0;
-            border-color: #ccc;
-            color: #333;
-        }
-        body.light-mode .view-mode-controls button.active {
-            background-color: #000;
-            border-color: #000;
-            color: #fff;
-        }
-        body.light-mode .pagination button {
-            background-color: #eee;
-            border-color: #ccc;
-            color: #666;
-        }
-        body.light-mode .pagination button:hover:not(:disabled) {
-            background-color: #ccc;
-            color: #333;
-        }
-        body.light-mode .pagination button.active {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
-        body.light-mode #toTopButton {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
-        body.light-mode #toTopButton:hover {
-            background-color: #333;
-            color: #fff;
-            border-color: #333;
-        }
-        body.light-mode #darkModeToggle {
-            background-color: #eee;
-            color: #333;
-            border-color: #ccc;
-        }
-        body.light-mode #darkModeToggle:hover {
-            background-color: #ccc;
-        }
-        body.light-mode .sidebar-area {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-        body.light-mode .search-notice {
-            background-color: #f8f8f8;
-            border-color: #eee;
-            color: #666;
-        }
-        body.light-mode .search-notice strong {
-            color: #333;
-        }
-        body.light-mode .search-area::after {
-            background-color: #ddd;
-        }
-        body.light-mode .sidebar-area {
-            border-top: 1px solid #ddd;
-        } */
-        /* ★ここまで削除★ */
-
-
-        /* ★#darkModeToggleに関するCSSも削除するよ★ */
-        /* #darkModeToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.3em;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        #darkModeToggle:hover {
-            background-color: #555;
-        } */
-
 
         /* ページトップに戻るボタン */
         #toTopButton {
@@ -312,7 +118,6 @@
             background-color: #333; /* ダークモードの線 */
         }
 
-
         /* 注意書きのスタイル */
         .search-notice {
             font-size: 0.9em;
@@ -389,7 +194,6 @@
             margin-top: 15px;
             gap: 15px; /* アイテム間の隙間 */
             padding-top: 15px; /* 上部に少し余白 */
-            /* border-top: 1px solid #333; */ /* 線をsearch-area::afterで表現 */
         }
 
         .sort-controls,
@@ -452,6 +256,25 @@
             background-color: #000; /* 黒 */
             border-color: #000;
             color: #fff; /* 白 */
+        }
+
+        /* 更新ボタンのスタイル */
+        #refreshButton {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #refreshButton:hover {
+            background-color: #555;
+            border-color: #777;
         }
 
 
@@ -769,6 +592,7 @@
             transform: scale(1.05);
         }
 
+
         /* レスポンシブ対応 */
         @media (max-width: 1200px) {
             .main-layout-container {
@@ -793,14 +617,6 @@
             .sidebar-area h2 {
                 margin-bottom: 20px;
             }
-            /* ★#darkModeToggleに関するレスポンシブCSSも削除するよ★ */
-            /* #darkModeToggle {
-                top: 15px;
-                right: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2em;
-            } */
             #toTopButton {
                 width: 50px;
                 height: 50px;
@@ -930,6 +746,9 @@
                     <strong>ご注意ください:</strong> 本サイトのプラグイン情報は**非公式**であり、更新が不定期かつ不正確な場合があります。<br>
                     各プラグインの導入方法はご自身でご確認ください。お問い合わせはX: <a href="https://twitter.com/_lineside_" target="_blank" rel="noopener noreferrer">@_lineside_</a>まで。
                 </div>
+                <div class="search-notice">
+                    <strong>スクリプトのまとめページはこちらから→ : </strong><a href="./script.html">AviUtl2 - スクリプト一覧</a>
+                </div>
                 <div class="search-notice" style="margin-top: 15px; border: 1px solid #5C6BC0; background-color: #1A237E; color: #E8EAF6;">
                     新しいプラグイン情報をご存知ですか？ <a href="contact.html" style="color: #BBDEFB; text-decoration: underline; font-weight: bold;">こちらから教えてください！</a>
                 </div>
@@ -944,6 +763,7 @@
                         <button id="gridButton" class="active" title="グリッド表示"><i class="ri-grid-fill"></i></button>
                         <button id="listButton" title="リスト表示"><i class="ri-list-unordered"></i></button>
                     </div>
+                    <button id="refreshButton" title="リストを更新"><i class="ri-refresh-line"></i></button>
 
                     <div class="sort-controls">
                         <span class="icon-button" title="並び順"><i class="ri-sort-asc"></i></span>
@@ -991,17 +811,16 @@
         const searchButton = document.getElementById('searchButton');
         const pluginList = document.getElementById('pluginList');
         const sidebarTagList = document.getElementById('sidebarTagList');
-        // const darkModeToggle = document.getElementById('darkModeToggle'); /* 削除 */
         const toTopButton = document.getElementById('toTopButton');
         const sortOrderSelect = document.getElementById('sortOrder');
         const pluginsPerPageSelect = document.getElementById('pluginsPerPage');
         const paginationContainer = document.getElementById('pagination');
-        // 新しく追加する要素
         const gridButton = document.getElementById('gridButton');
         const listButton = document.getElementById('listButton');
+        const refreshButton = document.getElementById('refreshButton');
 
-        let allPlugins = []; // 全てのプラグインデータを保持する配列
-        let filteredPlugins = []; // フィルター後のプラグインデータを保持する配列
+        let allPlugins = [];
+        let filteredPlugins = [];
         let activeTags = new Set();
         let allUniqueTags = new Set();
         let currentPage = 1;
@@ -1330,7 +1149,6 @@
             paginationContainer.appendChild(nextButton);
         }
 
-
         // スクロール時のページトップボタン表示/非表示
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -1347,31 +1165,6 @@
                 behavior: 'smooth'
             });
         });
-
-        /* ★ここからダークモード切り替えに関するJSを削除するよ★ */
-        // darkModeToggle.addEventListener('click', () => {
-        //     document.body.classList.toggle('light-mode');
-        //     const isLightMode = document.body.classList.contains('light-mode');
-        //     localStorage.setItem('darkMode', isLightMode ? 'off' : 'on');
-
-        //     if (isLightMode) {
-        //         darkModeToggle.querySelector('i').className = 'ri-moon-line';
-        //     } else {
-        //         darkModeToggle.querySelector('i').className = 'ri-sun-line';
-        //     }
-        // });
-
-        // // ページロード時に保存されたダークモード設定を適用
-        // function applySavedDarkMode() {
-        //     if (localStorage.getItem('darkMode') === 'off') {
-        //         document.body.classList.add('light-mode');
-        //         darkModeToggle.querySelector('i').className = 'ri-moon-line';
-        //     } else {
-        //         document.body.classList.remove('light-mode');
-        //         darkModeToggle.querySelector('i').className = 'ri-sun-line';
-        //     }
-        // }
-        /* ★ここまで削除★ */
 
         // イベントリスナーを設定するよ
         searchButton.addEventListener('click', () => {
@@ -1412,9 +1205,15 @@
             renderPlugins(); // 表示モードが変わったときも再レンダリングする
         });
 
+        // 更新ボタンのイベントリスナー
+        refreshButton.addEventListener('click', () => {
+            console.log('Refresh button clicked! Reloading plugins data...');
+            currentPage = 1; // データを再読み込みしたら、最初のページに戻る
+            fetchData(); // プラグインデータを再読み込みする
+        });
+
         // ページが読み込まれたら初期化するよ
         document.addEventListener('DOMContentLoaded', () => {
-            // applySavedDarkMode(); // ダークモード設定適用 /* 削除 */
             fetchData(); // プラグインデータを読み込む
             // 初期表示でグリッドモードをアクティブにする
             gridButton.classList.add('active');
