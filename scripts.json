@@ -12,5 +12,19 @@
         "url": "https://github.com/katakyo/AviUtl2-Scripts",
         "tags": ["効果", "オーバーレイ"],
         "createdAt": "2025-07-09T03:49:00Z"
+    },
+    {
+        "name": "AviUtl2-Bend / karoterra",
+        "description": "画像を曲線に沿って曲げるスクリプト",
+        "url": "https://github.com/karoterra/aviutl2-Bend",
+        "tags": ["画像", "変形"],
+        "createdAt": "2025-07-09T04:01:00Z"
+    },
+    {
+        "name": "画像ループ2 / 鯖缶メルム",
+        "description": "X,Yの幅をそれぞれ指定できる画像ループ用スクリプト",
+        "url": "https://x.com/Sabakanmelm_mad/status/1942384767321977224",
+        "tags": ["効果", "複製", "画像"],
+        "createdAt": "2025-07-09T04:04:00Z"
     }
 ]
