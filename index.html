@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AviUtl2 プラグイン図鑑</title>
+    <title>AviUtl2 - プラグイン一覧</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" href="./icon.png" type="image/png">
+    <link rel="shortcut icon" href="./icon.png" type="image/png">
     <style>
         /* 全体のリセットと基本設定 */
         * {
@@ -24,9 +26,9 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 0; /* 画面いっぱいに使うためパディングを削除 */
+            padding: 30px 20px; /* 全体的なパディングを調整 */
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            -moz-osx-osx-font-smoothing: grayscale;
             transition: background-color 0.3s, color 0.3s; /* ダークモード切り替えアニメーション */
         }
 
@@ -43,18 +45,21 @@
         }
         body.light-mode h1 {
             color: #222;
+            border-bottom: 1px solid #ccc; /* ライトモードのボーダー */
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
         body.light-mode .search-area,
         body.light-mode .sidebar-area {
             background-color: transparent; /* 背景を透明に */
             border-color: #ddd;
         }
-        body.light-mode .search-area input[type="text"] {
+        body.light-mode .search-area input {
             background-color: #f0f0f0; /* 少しグレーに */
             border-color: #ccc;
             color: #333;
         }
-        body.light-mode .search-area input[type="text"]::placeholder {
+        body.light-mode .search-area input::placeholder {
             color: #999;
         }
         body.light-mode .search-button {
@@ -86,7 +91,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
         body.light-mode .plugin-card h2 {
-            color: #222;
+            color: #222; /* ★ここを修正したよ！★ */
         }
         body.light-mode .plugin-card p {
             color: #555;
@@ -179,6 +184,14 @@
         body.light-mode .sidebar-area {
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* サイドバーに影を追加 */
         }
+        body.light-mode .search-notice {
+            background-color: #f8f8f8; /* 少しグレーに */
+            border-color: #eee;
+            color: #666;
+        }
+        body.light-mode .search-notice strong {
+            color: #333;
+        }
 
 
         /* ダークモード切り替えボタン */
@@ -204,7 +217,7 @@
         #darkModeToggle:hover {
             background-color: #555;
         }
-        
+
         /* ページトップに戻るボタン */
         #toTopButton {
             position: fixed;
@@ -239,7 +252,7 @@
         .main-layout-container {
             display: flex;
             width: 100%;
-            max-width: 100%; /* 最大幅を100%に */
+            max-width: 1200px; /* 最大幅を少し調整 */
             height: auto; /* 高さを自動調整 */
             gap: 0; /* カラム間のギャップをなくす */
             background-color: transparent; /* 背景を透明に */
@@ -262,13 +275,12 @@
         h1 {
             color: #fff;
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.8em;
+            margin-bottom: 30px; /* margin-bottomを少し減らす */
+            font-size: 2.2em; /* フォントサイズを少し小さく */
             font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
+            letter-spacing: 1px; /* letter-spacingを少し調整 */
+            border-bottom: 1px solid #333; /* ボーダーを少し控えめに */
+            padding-bottom: 8px; /* padding-bottomを少し減らす */
         }
 
         /* 検索エリアのスタイル */
@@ -363,7 +375,7 @@
         .search-button i {
             font-size: 1em; /* 親要素のフォントサイズに合わせる */
         }
-        
+
         /* ソート、表示数、ビューモードのコントロール */
         .controls-row {
             display: flex;
@@ -639,8 +651,8 @@
             text-decoration: none; /* 下線なし */
             font-weight: 600; /* 太字 */
             display: inline-block;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             font-size: 0.85em; /* リンクの文字を小さく */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         .plugin-list.list-mode .plugin-card .link a:hover {
             background-color: #fff; /* グリッドと同じホバー色に */
@@ -851,9 +863,9 @@
                 justify-content: flex-start; /* 左寄せ維持 */
             }
             .plugin-list.list-mode .plugin-card p.description-text {
+                font-size: 0.9em; /* 少し小さく */
                 grid-column: 1 / 2;
                 grid-row: 2 / 3;
-                font-size: 0.9em; /* 少し小さく */
             }
             .plugin-list.list-mode .plugin-card .card-footer {
                 grid-column: 1 / 2;
@@ -874,7 +886,7 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 0;
+                padding: 20px 15px;
             }
             .main-layout-container {
                 padding: 0;
@@ -883,8 +895,8 @@
                 padding: 20px 15px;
             }
             h1 {
-                font-size: 2.2em;
-                margin-bottom: 30px;
+                font-size: 1.8em; /* さらに小さく */
+                margin-bottom: 25px;
             }
             .search-area {
                 padding: 20px 0;
@@ -932,12 +944,15 @@
 
     <div class="main-layout-container">
         <div class="content-area">
-            <h1>AviUtl2 プラグイン図鑑</h1>
+            <h1>AviUtl2 プラグイン一覧</h1>
 
             <div class="search-area" id="searchArea">
                 <div class="search-notice">
                     <strong>ご注意ください:</strong> 本サイトのプラグイン情報は**非公式**であり、更新が不定期かつ不正確な場合があります。<br>
                     各プラグインの導入方法はご自身でご確認ください。お問い合わせはX: <a href="https://twitter.com/_lineside_" target="_blank" rel="noopener noreferrer">@_lineside_</a>まで。
+                </div>
+                <div class="search-notice" style="margin-top: 15px; border: 1px solid #5C6BC0; background-color: #1A237E; color: #E8EAF6;">
+                    新しいプラグイン情報をご存知ですか？ <a href="contact.html" style="color: #BBDEFB; text-decoration: underline; font-weight: bold;">こちらから教えてください！</a>
                 </div>
                 <div class="search-input-group">
                     <input type="text" id="searchInput" placeholder="キーワードまたは #タグ名 で検索...">
@@ -1029,7 +1044,7 @@
                 }));
 
                 console.log("Plugins loaded:", allPlugins);
-                
+
                 createTagButtonsInSidebar(); // タグボタンを生成
                 filterAndRenderPlugins(); // データ読み込み後に表示を更新
             } catch (error) {
@@ -1175,7 +1190,7 @@
                         matchesTags = true;
                     }
                 }
-                
+
                 return matchesKeyword && matchesTags;
             });
 
@@ -1189,7 +1204,7 @@
                 } else if (sortOrder === 'date-newest') {
                     return b.createdAt.getTime() - a.createdAt.getTime();
                 } else if (sortOrder === 'date-oldest') {
-                    return a.createdAt.getTime() - a.createdAt.getTime();
+                    return a.createdAt.getTime() - b.createdAt.getTime();
                 }
                 return 0;
             });
@@ -1384,7 +1399,7 @@
             currentPage = 1;
             filterAndRenderPlugins();
         });
-        
+
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 currentPage = 1;
