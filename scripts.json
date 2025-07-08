@@ -1,0 +1,72 @@
+[
+    {
+        "name": "MP4Exporter",
+        "description": "AviUtlで動画をMP4出力できるようになる出力プラグイン",
+        "url": "https://apps.esugo.net/aviutl2-mp4exporter/",
+        "tags": ["必須", "出力"],
+        "createdAt": "2025-07-08T11:42:00Z"
+    },
+    {
+        "name": "L-SMASH-Works-Auto-Builds",
+        "description": "AviUtlで読み込むことのできるファイルの種類を増やすことができる入力プラグイン",
+        "url": "https://github.com/Mr-Ojii/L-SMASH-Works-Auto-Builds",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-08T11:45:00Z"
+    },
+    {
+        "name": "InputPipePlugin",
+        "description": "lwinput.aulを別プロセスで実行し、軽量化を図る入力プラグイン",
+        "url": "https://github.com/amate/InputPipePlugin",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-09T00:02:00Z"
+    },
+    {
+        "name": "DirectShow File Reader",
+        "description": "AviUtlで読み込むことのできるファイルの種類を増やすことができる入力プラグイン",
+        "url": "http://videoinfo.tenchi.ne.jp/?DirectShow%20File%20Reader%20%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3%20for%20AviUtl",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-09T00:18:00Z"
+    },
+    {
+        "name": "ffmpegOut",
+        "description": "ffmpegによるAviUtlの動画の書き出しを可能にするプラグイン",
+        "url": "https://github.com/rigaya/ffmpegOut",
+        "tags": ["出力", "FFmpeg"],
+        "createdAt": "2025-07-09T00:18:00Z"
+    },
+    {
+        "name": "NVEnc",
+        "description": "NVIDIA製GPUによるハードウェアエンコードへの対応用プラグイン",
+        "url": "https://github.com/rigaya/NVEnc",
+        "tags": ["出力", "ハードウェアエンコード", "GPU"],
+        "createdAt": "2025-07-09T02:20:00Z"
+    },
+    {
+        "name": "QSVEnc",
+        "description": "Intel製CPUに搭載されているグラフィックによるハードウェアエンコードへの対応用プラグイン",
+        "url": "https://github.com/rigaya/QSVEnc",
+        "tags": ["出力", "ハードウェアエンコード", "GPU"],
+        "createdAt": "2025-07-09T02:22:00Z"
+    },
+    {
+        "name": "x264guiEx",
+        "description": "x264を使用してでのエンコードへの対応用プラグイン",
+        "url": "https://github.com/rigaya/x264guiEx",
+        "tags": ["必須", "出力", "x264"],
+        "createdAt": "2025-07-09T02:34:00Z"
+    },
+    {
+        "name": "x265guiEx",
+        "description": "x265を使用してでのエンコードへの対応用プラグイン",
+        "url": "https://github.com/rigaya/x265guiEx",
+        "tags": ["必須", "出力", "x265"],
+        "createdAt": "2025-07-09T02:34:00Z"
+    },
+    {
+        "name": "MFVideoReader",
+        "description": "幅広い種類のファイルの入力に対応できるようになるプラグイン",
+        "url": "https://github.com/rigaya/x265guiEx",
+        "tags": ["必須", "入力"],
+        "createdAt": "2025-07-09T02:34:00Z"
+    }
+]
