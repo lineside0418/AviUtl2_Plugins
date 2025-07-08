@@ -33,5 +33,19 @@
         "url": "https://github.com/rigaya/ffmpegOut",
         "tags": ["必須", "出力", "ffmpeg"],
         "createdAt": "2025-07-09T00:18:00Z"
+    },
+    {
+        "name": "NVEnc",
+        "description": "NVIDIA製GPUによるハードウェアエンコードへの対応",
+        "url": "https://github.com/rigaya/NVEnc",
+        "tags": ["必須", "出力", "ハードウェアエンコード", "GPU"],
+        "createdAt": "2025-07-09T02:20:00Z"
+    },
+    {
+        "name": "QSVEnc",
+        "description": "Intel製CPUに搭載されているグラフィックによるハードウェアエンコードへの対応",
+        "url": "https://github.com/rigaya/QSVEnc",
+        "tags": ["必須", "出力", "ハードウェアエンコード", "GPU"],
+        "createdAt": "2025-07-09T02:22:00Z"
     }
 ]
