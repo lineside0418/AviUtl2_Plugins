@@ -631,8 +631,21 @@
             flex-shrink: 0; /* 縮まないように */
         }
         .plugin-list.list-mode .plugin-card .link a {
+            color: #fff; /* グリッドと同じ色に */
+            background-color: #000; /* グリッドと同じ色に */
+            border: 1px solid #fff; /* グリッドと同じ色に */
+            padding: 6px 12px; /* パディングを調整 */
+            border-radius: 4px; /* 角丸を適用 */
+            text-decoration: none; /* 下線なし */
+            font-weight: 600; /* 太字 */
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             font-size: 0.85em; /* リンクの文字を小さく */
-            padding: 6px 12px;
+        }
+        .plugin-list.list-mode .plugin-card .link a:hover {
+            background-color: #fff; /* グリッドと同じホバー色に */
+            color: #000; /* グリッドと同じホバー色に */
+            border-color: #fff; /* グリッドと同じホバー色に */
         }
 
 
