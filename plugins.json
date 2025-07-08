@@ -36,30 +36,37 @@
     },
     {
         "name": "NVEnc",
-        "description": "NVIDIA製GPUによるハードウェアエンコードへの対応",
+        "description": "NVIDIA製GPUによるハードウェアエンコードへの対応用プラグイン",
         "url": "https://github.com/rigaya/NVEnc",
         "tags": ["出力", "ハードウェアエンコード", "GPU"],
         "createdAt": "2025-07-09T02:20:00Z"
     },
     {
         "name": "QSVEnc",
-        "description": "Intel製CPUに搭載されているグラフィックによるハードウェアエンコードへの対応",
+        "description": "Intel製CPUに搭載されているグラフィックによるハードウェアエンコードへの対応用プラグイン",
         "url": "https://github.com/rigaya/QSVEnc",
         "tags": ["出力", "ハードウェアエンコード", "GPU"],
         "createdAt": "2025-07-09T02:22:00Z"
     },
     {
         "name": "x264guiEx",
-        "description": "x264を使用してでのエンコードへの対応",
+        "description": "x264を使用してでのエンコードへの対応用プラグイン",
         "url": "https://github.com/rigaya/x264guiEx",
         "tags": ["必須", "出力", "x264"],
         "createdAt": "2025-07-09T02:34:00Z"
     },
     {
         "name": "x265guiEx",
-        "description": "x265を使用してでのエンコードへの対応",
+        "description": "x265を使用してでのエンコードへの対応用プラグイン",
         "url": "https://github.com/rigaya/x265guiEx",
         "tags": ["必須", "出力", "x265"],
+        "createdAt": "2025-07-09T02:34:00Z"
+    },
+    {
+        "name": "MFVideoReader",
+        "description": "幅広い種類のファイルの入力に対応できるようになるプラグイン",
+        "url": "https://github.com/rigaya/x265guiEx",
+        "tags": ["必須", "入力"],
         "createdAt": "2025-07-09T02:34:00Z"
     }
 ]
