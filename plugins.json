@@ -65,7 +65,7 @@
     {
         "name": "MFVideoReader",
         "description": "幅広い種類のファイルの入力に対応できるようになるプラグイン",
-        "url": "https://github.com/rigaya/x265guiEx",
+        "url": "https://github.com/amate/MFVideoReader",
         "tags": ["必須", "入力"],
         "createdAt": "2025-07-09T02:34:00Z"
     }
