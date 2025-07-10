@@ -1,14 +1,14 @@
 [
     {
         "name": "AviUtl2_Scripts / nakano000",
-        "description": "nakano000さんによるAviUtl2に対応したプラグイン集",
+        "description": "nakano000さんによるAviUtl2に対応したスクリプト集",
         "url": "https://github.com/nakano000/AviUtl2_Scripts",
         "tags": ["効果", "オーバーレイ", "集中線"],
         "createdAt": "2025-07-09T03:47:00Z"
     },
     {
         "name": "AviUtl2-Scripts / katakyo",
-        "description": "katakyoさんによるAviUtl2に対応したプラグイン集",
+        "description": "katakyoさんによるAviUtl2に対応したスクリプト集",
         "url": "https://github.com/katakyo/AviUtl2-Scripts",
         "tags": ["効果", "オーバーレイ", "シネマスコープ"],
         "createdAt": "2025-07-09T03:49:00Z"
