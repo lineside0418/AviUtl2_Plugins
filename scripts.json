@@ -1,16 +1,16 @@
 [
     {
         "name": "AviUtl2_Scripts / nakano000",
-        "description": "nakano000さんによるAviUtl2に対応したプラグイン集(更新当時は集中線のみ)",
+        "description": "nakano000さんによるAviUtl2に対応したプラグイン集",
         "url": "https://github.com/nakano000/AviUtl2_Scripts",
-        "tags": ["効果", "オーバーレイ"],
+        "tags": ["効果", "オーバーレイ", "集中線"],
         "createdAt": "2025-07-09T03:47:00Z"
     },
     {
         "name": "AviUtl2-Scripts / katakyo",
-        "description": "katakyoさんによるAviUtl2に対応したプラグイン集(更新当時はシネマスコープのみ)",
+        "description": "katakyoさんによるAviUtl2に対応したプラグイン集",
         "url": "https://github.com/katakyo/AviUtl2-Scripts",
-        "tags": ["効果", "オーバーレイ"],
+        "tags": ["効果", "オーバーレイ", "シネマスコープ"],
         "createdAt": "2025-07-09T03:49:00Z"
     },
     {
@@ -24,14 +24,56 @@
         "name": "画像ループ2 / 鯖缶メルム",
         "description": "X,Yの幅をそれぞれ指定できる画像ループ用スクリプト",
         "url": "https://x.com/Sabakanmelm_mad/status/1942384767321977224",
-        "tags": ["効果", "複製", "画像"],
+        "tags": ["効果", "複製", "画像", "ループ"],
         "createdAt": "2025-07-09T04:04:00Z"
     },
     {
         "name": "折り畳み / てつ(XIAO)",
         "description": "映像や画像を折り畳めんだり広げたりできるスクリプト",
         "url": "https://x.com/tt_xiaop/status/1942481707682115712",
-        "tags": ["効果", "伸縮", "画像"],
-        "createdAt": "2025-07-09T04:04:00Z"
+        "tags": ["効果", "伸縮", "画像", "動画"],
+        "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "GrungeConverter / korarei",
+        "description": "画像をグランジ素材に変換できるスクリプト",
+        "url": "https://github.com/korarei/AviUtl_GrungeConverter_Script",
+        "tags": ["グランジ", "変換", "画像"],
+        "createdAt": "2025-07-10T017:00:00Z"
+    },
+    {
+        "name": "立体化(g) / gometh",
+        "description": "光源反射にも対応した、立体化スクリプト",
+        "url": "https://x.com/gometh55/status/1942624351028928756",
+        "tags": ["効果", "3D", "立体", "オブジェクト", "TA"],
+        "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "ColorVisionSimulation / karoterra",
+        "description": "各色覚の見え方を再現できるスクリプト",
+        "url": "https://github.com/karoterra/aviutl2-ColorVisionSimulation",
+        "tags": ["効果", "色覚", "画像"],
+        "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "リリックモーション / korarei",
+        "description": "リリックモーションを行うためのスクリプト",
+        "url": "https://github.com/korarei/AviUtl2_AutoLyricAnimation_K_Script",
+        "tags": ["モーション", "リリック", "移動", "TA"],
+        "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "AviUtl2-Scripts / nea-c",
+        "description": "nea-cさんによるAviUtl2に対応したプラグイン集",
+        "url": "https://github.com/korarei/AviUtl2_AutoLyricAnimation_K_Script",
+        "tags": ["TA", "効果", "オーバーレイ", "素材", "配置"],
+        "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "Cuboid / shouta0224",
+        "description": "直方体を配置できるようになるスクリプト",
+        "url": "https://github.com/shouta0224/AviutlCuboid",
+        "tags": ["直方体", "3D"],
+        "createdAt": "2025-07-10T17:00:00Z"
     }
 ]
