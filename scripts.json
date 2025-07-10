@@ -64,7 +64,7 @@
     },
     {
         "name": "AviUtl2-Scripts / nea-c",
-        "description": "nea-cさんによるAviUtl2に対応したプラグイン集",
+        "description": "nea-cさんによるAviUtl2に対応したスクリプト集",
         "url": "https://github.com/korarei/AviUtl2_AutoLyricAnimation_K_Script",
         "tags": ["TA", "効果", "オーバーレイ", "素材", "配置"],
         "createdAt": "2025-07-10T17:00:00Z"
@@ -78,8 +78,15 @@
     },
     {
         "name": "扇ブラインド / てつ(XIAO)",
-        "description": "扇形にブラインドできるプラグイン",
+        "description": "扇形にブラインドできるスクリプト",
         "url": "https://x.com/tt_xiaop/status/1943165775189270911",
+        "tags": ["効果", "扇", "クリッピング"],
+        "createdAt": "2025-07-11T01:00:00Z"
+    },
+    {
+        "name": "値で図形",
+        "description": "XとYの値を指定して図形を描画できるスクリプト",
+        "url": "https://x.com/nagomiku7359/status/1943304659487396140",
         "tags": ["効果", "扇", "クリッピング"],
         "createdAt": "2025-07-11T01:00:00Z"
     }
