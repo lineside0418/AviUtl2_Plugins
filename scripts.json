@@ -75,5 +75,12 @@
         "url": "https://github.com/shouta0224/AviutlCuboid",
         "tags": ["直方体", "3D"],
         "createdAt": "2025-07-10T17:00:00Z"
+    },
+    {
+        "name": "扇ブラインド / てつ(XIAO)",
+        "description": "扇形にブラインドできるプラグイン",
+        "url": "https://x.com/tt_xiaop/status/1942481707682115712",
+        "tags": ["効果", "扇", "クリッピング"],
+        "createdAt": "2025-07-11T01:00:00Z"
     }
 ]
