@@ -30,67 +30,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* ライトモードのスタイル */
-        body.light-mode {
-            background-color: #fff;
-            color: #333;
-        }
-
-        body.light-mode .container {
-            background-color: #f8f8f8;
-            border-color: #ddd;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-        body.light-mode h1 {
-            color: #222;
-            border-color: #ddd;
-        }
-        body.light-mode .form-group label {
-            color: #333;
-        }
-        body.light-mode input[type="text"],
-        body.light-mode input[type="url"],
-        body.light-mode textarea {
-            background-color: #fff;
-            border-color: #ccc;
-            color: #333;
-        }
-        body.light-mode input[type="text"]::placeholder,
-        body.light-mode input[type="url"]::placeholder,
-        body.light-mode textarea::placeholder {
-            color: #999;
-        }
-        body.light-mode button[type="submit"] {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
-        body.light-mode button[type="submit"]:hover {
-            background-color: #333;
-            border-color: #333;
-        }
-        body.light-mode .back-button {
-            background-color: #eee;
-            color: #333;
-            border-color: #ccc;
-        }
-        body.light-mode .back-button:hover {
-            background-color: #ddd;
-        }
-        body.light-mode .notice {
-            background-color: #f0f0f0;
-            border-color: #ddd;
-            color: #666;
-        }
-        body.light-mode #darkModeToggle {
-            background-color: #eee;
-            color: #333;
-            border-color: #ccc;
-        }
-        body.light-mode #darkModeToggle:hover {
-            background-color: #ccc;
-        }
-
 
         .container {
             background-color: #1a1a1a;
@@ -208,30 +147,6 @@
             font-size: 1.2em;
         }
 
-        /* ダークモード切り替えボタン */
-        #darkModeToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.3em;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        #darkModeToggle:hover {
-            background-color: #555;
-        }
-
         /* レスポンシブ対応 */
         @media (max-width: 768px) {
             body {
@@ -265,21 +180,10 @@
                 padding: 8px 15px;
                 font-size: 0.9em;
             }
-            #darkModeToggle {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2em;
-                top: 15px;
-                right: 15px;
-            }
         }
     </style>
 </head>
 <body>
-    <div id="darkModeToggle">
-        <i class="ri-sun-line"></i>
-    </div>
-
     <div class="container">
         <h1>新しいプラグインの情報募集中</h1>
         <div class="notice">
@@ -309,36 +213,11 @@
 
     <a href="index.html" class="back-button">
         <i class="ri-arrow-left-line"></i>
-        図鑑トップへ戻る
+        ページトップへ戻る
     </a>
 
     <script>
         const pluginSuggestionForm = document.getElementById('pluginSuggestionForm');
-        const darkModeToggle = document.getElementById('darkModeToggle');
-
-        // ダークモード切り替え
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isLightMode = document.body.classList.contains('light-mode');
-            localStorage.setItem('darkMode', isLightMode ? 'off' : 'on');
-
-            if (isLightMode) {
-                darkModeToggle.querySelector('i').className = 'ri-moon-line';
-            } else {
-                darkModeToggle.querySelector('i').className = 'ri-sun-line';
-            }
-        });
-
-        // ページロード時に保存されたダークモード設定を適用
-        function applySavedDarkMode() {
-            if (localStorage.getItem('darkMode') === 'off') {
-                document.body.classList.add('light-mode');
-                darkModeToggle.querySelector('i').className = 'ri-moon-line';
-            } else {
-                document.body.classList.remove('light-mode');
-                darkModeToggle.querySelector('i').className = 'ri-sun-line';
-            }
-        }
 
         pluginSuggestionForm.addEventListener('submit', function(event) {
             event.preventDefault(); // フォームのデフォルト送信をキャンセル
@@ -359,8 +238,6 @@ URL: ${pluginUrl}
 ${description || 'なし'}
 タグの候補: ${tags || 'なし'}
 ---
-
-情報提供本当にありがとうございます...！。
 `;
             // mailtoリンクを作成
             // エンコードしないと長いURLや特殊文字で問題が起きる可能性があるため、encodeURIComponentを使う
@@ -373,10 +250,6 @@ ${description || 'なし'}
 
             alert('ご提供ありがとうございます！メールクライアントが起動しますので、内容をご確認の上送信してください。');
             pluginSuggestionForm.reset(); // フォームをリセット
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applySavedDarkMode();
         });
     </script>
 </body>
