@@ -65,7 +65,7 @@
     {
         "name": "AviUtl2-Scripts / nea-c",
         "description": "nea-cさんによるAviUtl2に対応したスクリプト集",
-        "url": "https://github.com/korarei/AviUtl2_AutoLyricAnimation_K_Script",
+        "url": "https://github.com/nea-c/AviUtl-Scripts/tree/master/aviutl2",
         "tags": ["TA", "効果", "オーバーレイ", "素材", "配置"],
         "createdAt": "2025-07-10T17:00:00Z"
     },
