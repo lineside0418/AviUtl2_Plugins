@@ -3,82 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AviUtl2の非公式プラグインをまとめたサイトです。">
     <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
-    <title>AviUtl2 - プラグイン一覧</title>
+    <title>AviUtl2 - プラグイン/スクリプト一覧</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="icon" href="./icon.png" type="image/png">
     <link rel="shortcut icon" href="./icon.png" type="image/png">
-    <link rel="stylesheet" href="style.css"> </head>
-<body>
-    <div class="main-layout-container">
-        <div class="content-area">
-            <h1>AviUtl2 プラグイン一覧</h1>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="page-plugins">
 
-            <div class="search-area" id="searchArea">
-                <div class="search-notice">
-                    <strong>ご注意ください:</strong> 本サイトのプラグイン情報は**非公式**であり、更新が不定期かつ不正確な場合があります。<br>
-                    各プラグインの導入方法はご自身でご確認ください。お問い合わせはX: <a href="https://twitter.com/_lineside_" target="_blank" rel="noopener noreferrer">@_lineside_</a>まで。
-                </div>
-                <div class="search-notice">
-                    <strong>スクリプトのまとめページはこちらから→ : </strong><a href="./script.html">AviUtl2 - スクリプト一覧</a>
-                </div>
-                <div class="search-notice" style="margin-top: 15px; border: 1px solid #5C6BC0; background-color: #1A237E; color: #E8EAF6;">
-                    新しいプラグイン情報をご存知ですか？ <a href="contact.html" style="color: #BBDEFB; text-decoration: underline; font-weight: bold;">こちらから教えてください！</a>
-                </div>
-                <div class="search-input-group">
-                    <input type="text" id="searchInput" placeholder="キーワードまたは #タグ名 で検索...">
-                    <button id="searchButton" class="search-button">
-                        <i class="ri-search-line"></i> </button>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="site-logo">AviUtl2 - プラグイン/スクリプト一覧</a>
+            <nav class="global-nav">
+                <ul>
+                    <li><a href="index.html" class="active">プラグイン一覧</a></li>
+                    <li><a href="script.html">スクリプト一覧</a></li>
+                    <li><a href="how_to_install.html">導入方法</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="breadcrumb">
+            <span><a href="index.html">ホーム</a></span> &gt; <span>プラグイン一覧</span>
+        </div>
+
+        <div class="main-layout-container">
+            <div class="content-area">
+                <h1>プラグイン一覧</h1>
+
+                <div class="search-area" id="searchArea">
+                    <div class="search-notice">
+                        <strong>ご注意ください:</strong> 本サイトの情報は**非公式**であり、更新が不定期かつ不正確な場合があります。<br>
+                        各プラグインの導入方法はご自身でご確認ください。お問い合わせはX: <a href="https://twitter.com/_lineside_" target="_blank" rel="noopener noreferrer">@_lineside_</a>まで。
+                    </div>
+                     <div class="search-notice notice-info">
+                        新しいプラグイン情報をご存知ですか？ <a href="contact.html">こちらから教えてください！</a>
+                    </div>
+                    <div class="search-input-group">
+                        <input type="text" id="searchInput" placeholder="キーワードまたは #タグ名 で検索...">
+                        <button id="searchButton" class="search-button" title="検索">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </div>
+
+                    <div class="controls-row">
+                        <div class="view-mode-controls">
+                            <button id="gridButton" class="active" title="グリッド表示"><i class="ri-grid-fill"></i></button>
+                            <button id="listButton" title="リスト表示"><i class="ri-list-unordered"></i></button>
+                        </div>
+                        <button id="refreshButton" title="リストを更新"><i class="ri-refresh-line"></i></button>
+
+                        <div class="sort-controls">
+                            <span class="icon-button" title="並び順"><i class="ri-sort-asc"></i></span>
+                            <select id="sortOrder">
+                                <option value="name-asc">名前 (昇順)</option>
+                                <option value="name-desc">名前 (降順)</option>
+                                <option value="date-newest">作成日時 (新しい順)</option>
+                                <option value="date-oldest">作成日時 (古い順)</option>
+                            </select>
+                        </div>
+                        <div class="items-per-page-controls">
+                            <span class="icon-button" title="表示数"><i class="ri-list-check-2"></i></span>
+                            <select id="itemsPerPage">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="60">60</option>
+                                <option value="120">120</option>
+                                <option value="all">全て</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="controls-row">
-                    <div class="view-mode-controls">
-                        <button id="gridButton" class="active" title="グリッド表示"><i class="ri-grid-fill"></i></button>
-                        <button id="listButton" title="リスト表示"><i class="ri-list-unordered"></i></button>
-                    </div>
-                    <button id="refreshButton" title="リストを更新"><i class="ri-refresh-line"></i></button>
-
-                    <div class="sort-controls">
-                        <span class="icon-button" title="並び順"><i class="ri-sort-asc"></i></span>
-                        <select id="sortOrder">
-                            <option value="name-asc">名前 (昇順)</option>
-                            <option value="name-desc">名前 (降順)</option>
-                            <option value="date-newest">作成日時 (新しい順)</option>
-                            <option value="date-oldest">作成日時 (古い順)</option>
-                        </select>
-                    </div>
-                    <div class="plugins-per-page-controls">
-                        <span class="icon-button" title="表示数"><i class="ri-list-check-2"></i></span>
-                        <select id="pluginsPerPage">
-                            <option value="12">12</option>
-                            <option value="24">24</option>
-                            <option value="36">36</option>
-                            <option value="60">60</option>
-                            <option value="120">120</option>
-                            <option value="all">全て</option>
-                        </select>
-                    </div>
-                </div>
+                <div class="item-list" id="itemList"></div>
+                <div class="pagination" id="pagination"></div>
             </div>
 
-            <div class="plugin-list" id="pluginList">
-                </div>
-
-            <div class="pagination" id="pagination">
-                </div>
+            <aside class="sidebar-area">
+                <h2>タグ一覧</h2>
+                <div class="sidebar-tag-list" id="sidebarTagList"></div>
+            </aside>
         </div>
-
-        <div class="sidebar-area">
-            <h2>タグ一覧</h2>
-            <div class="sidebar-tag-list" id="sidebarTagList">
-                </div>
-        </div>
-    </div>
+    </main>
 
     <button id="toTopButton" title="ページトップへ">
         <i class="ri-arrow-up-line"></i>
     </button>
 
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>
