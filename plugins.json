@@ -67,13 +67,13 @@
         "description": "音声のみをWAV形式で出力できるようになるプラグイン",
         "url": "https://github.com/hebiiro/al2_wav_saver",
         "tags": ["出力", "WAV"],
-        "createdAt": "2025-07-09T02:34:00Z"
+        "createdAt": "2025-07-16T02:34:00Z"
     },
     {
         "name": "AviUtl2_CN",
         "description": "中国語(簡体字)の言語化プラグイン",
         "url": "https://github.com/hebiiro/al2_wav_saver",
         "tags": ["言語", "翻訳", "中国語"],
-        "createdAt": "2025-07-09T02:34:00Z"
+        "createdAt": "2025-07-16T02:34:00Z"
     }
 ]
