@@ -89,5 +89,40 @@
         "url": "https://x.com/nagomiku7359/status/1943304659487396140",
         "tags": ["効果", "扇", "クリッピング"],
         "createdAt": "2025-07-11T01:00:00Z"
+    },
+    {
+        "name": "OilPainting / karoterra",
+        "description": "Kuwahara filterにより油絵風の加工を施すスクリプト",
+        "url": "https://github.com/karoterra/aviutl2-OilPainting",
+        "tags": ["効果", "油絵", "フィルター"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "スペクトラムビジュアライザ / zopty",
+        "description": "スペクトラムビジュアライザを追加するスクリプト",
+        "url": "https://gist.github.com/zopty/80bf079e15850a6ed1a2f4155d74414b",
+        "tags": ["カスタムオブジェクト", "ビジュアライザー", "音声"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "角丸長方形配置 / もも猫",
+        "description": "角丸長方形配置上に個別オブジェクトを配置できるようになるスクリプト",
+        "url": "https://x.com/momo_neeeko/status/1944343165852426666",
+        "tags": ["配置", "アニメーション"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "潰す / もも猫",
+        "description": "潰れ具合を調節して縦と横のリサイズを行うスクリプト",
+        "url": "https://x.com/momo_neeeko/status/1944343165852426666",
+        "tags": ["リサイズ", "潰す"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "BPMカクカク振動 / もも猫",
+        "description": "BPMで振動数が設定できるスクリプト",
+        "url": "https://x.com/momo_neeeko/status/1944343165852426666",
+        "tags": ["BPM", "振動", "アニメーション"],
+        "createdAt": "2025-07-16T01:00:00Z"
     }
 ]
