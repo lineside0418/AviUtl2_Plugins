@@ -124,5 +124,33 @@
         "url": "https://x.com/momo_neeeko/status/1944343165852426666",
         "tags": ["BPM", "振動", "アニメーション"],
         "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "移動量指定 / harumaru",
+        "description": "移動量を指定して移動させることができるスクリプト",
+        "url": "https://hamarustar.booth.pm/items/7171661",
+        "tags": ["移動", "移動量指定", "アニメーション"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "GradientPlus / azurite581",
+        "description": "sRGB以外の色空間でのグラデーションができるようになるスクリプト",
+        "url": "https://github.com/azurite581/AviUtl2-GradientPlus",
+        "tags": ["色彩", "グラデーション", "色空間"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "YMM風ランダム移動・ランダム回転 / アス",
+        "description": "YMMの機能である「ランダム移動」と「ランダム回転」を再現したスクリプト",
+        "url": "https://x.com/asu_x_jp/status/1944372511803883918",
+        "tags": ["YMM", "ランダム", "移動", "回転", "効果"],
+        "createdAt": "2025-07-16T01:00:00Z"
+    },
+    {
+        "name": "ロングシャドー・フラットシャドー / こんにゃくねこ",
+        "description": "ロングシャドーとフラットシャドーを追加するスクリプト",
+        "url": "https://x.com/CatWithNeko/status/1944653841984823638",
+        "tags": ["影", "ロングシャドー", "フラットシャドー・", "効果"],
+        "createdAt": "2025-07-16T01:00:00Z"
     }
 ]
