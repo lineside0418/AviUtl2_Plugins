@@ -4,32 +4,26 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const srcDir = path.join(__dirname, '..', 'src');
-const buildDir = path.join(__dirname, '..', 'dist');
 
-// Ensure the styles directory exists in the build directory
-const stylesDir = path.join(buildDir, 'styles');
-if (!fs.existsSync(stylesDir)) {
-  fs.mkdirSync(stylesDir, { recursive: true });
-}
+// プロジェクトのルートディレクトリからのパスを基準にする
+const projectRoot = path.resolve(__dirname, '..'); // scriptsフォルダから一つ上
+const distDir = path.join(projectRoot, 'dist'); // distフォルダのパス
 
-// Copy optimized.css to the build directory
-const optimizedCssSrc = path.join(srcDir, 'styles', 'optimized.css');
-const optimizedCssDest = path.join(stylesDir, 'optimized.css');
+// --- 404.html コピー処理 ---
+const indexPath = path.join(distDir, 'index.html');
+const notFoundPath = path.join(distDir, '404.html');
 
 try {
-  // Check if the source file exists
-  if (fs.existsSync(optimizedCssSrc)) {
-    // Read the source file
-    const cssContent = fs.readFileSync(optimizedCssSrc, 'utf8');
-    
-    // Write to the destination
-    fs.writeFileSync(optimizedCssDest, cssContent, 'utf8');
-    console.log('✅ Optimized CSS copied to build directory');
+  // index.htmlが存在するか確認してからコピー
+  if (fs.existsSync(indexPath)) {
+    fs.copyFileSync(indexPath, notFoundPath); // ファイルをコピーするよ
+    console.log('✅ Copied index.html to 404.html successfully!');
   } else {
-    console.warn('⚠️  optimized.css not found in src/styles/');
+    console.warn('⚠️  index.html not found in dist folder. 404.html was not copied.');
   }
 } catch (err) {
-  console.error('❌ Error copying optimized CSS:', err);
+  console.error('❌ Error copying index.html to 404.html:', err);
   // エラーが発生してもビルドを継続する
 }
+
+// このスクリプトの後に sitemap 生成スクリプトが呼ばれるはず
