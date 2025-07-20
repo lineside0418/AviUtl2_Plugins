@@ -9,16 +9,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // サイトのベースURL
-const SITE_URL = 'https://lineside0418.github.io/AviUtl2_Plugins';
+const BASE_URL = 'https://lineside0418.github.io';
+const BASE_PATH = '/AviUtl2_Plugins';
 
 // 静的ページの定義
 const staticPages = [
-  { url: '/', changefreq: 'daily', priority: 1.0 },
-  { url: '/scripts', changefreq: 'daily', priority: 0.9 },
-  { url: '/how-to-install', changefreq: 'monthly', priority: 0.8 },
-  { url: '/submission', changefreq: 'monthly', priority: 0.7 },
-  { url: '/privacy', changefreq: 'yearly', priority: 0.5 },
-  { url: '/terms', changefreq: 'yearly', priority: 0.5 },
+  { path: BASE_PATH + '/', changefreq: 'daily', priority: 1.0 },
+  { path: BASE_PATH + '/scripts', changefreq: 'daily', priority: 0.9 },
+  { path: BASE_PATH + '/how-to-install', changefreq: 'monthly', priority: 0.8 },
 ];
 
 // サイトマップを生成する関数
@@ -32,7 +30,7 @@ async function generateSitemap() {
     
     // サイトマップのストリームを作成
     const sitemap = new SitemapStream({
-      hostname: SITE_URL,
+      hostname: BASE_URL,  // ベースURLのみを指定
       lastmodDateOnly: true,
       xmlns: {
         news: false,
@@ -53,8 +51,14 @@ async function generateSitemap() {
     
     // 静的ページをサイトマップに追加
     staticPages.forEach(page => {
+      // 完全なURLを手動で構築
+      const fullUrl = page.path;
+      
+      // 先頭のスラッシュを削除（相対パスとして扱うため）
+      const cleanUrl = fullUrl.startsWith('/') ? fullUrl.substring(1) : fullUrl;
+      
       sitemap.write({
-        url: page.url,
+        url: cleanUrl,
         changefreq: page.changefreq,
         priority: page.priority,
         lastmod: page.lastmod || today,
