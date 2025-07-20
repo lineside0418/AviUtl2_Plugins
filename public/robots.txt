@@ -1,0 +1,10 @@
+# robots.txt for AviUtl2 Plugins
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*?*
+Allow: /?q=*
+
+# Sitemap
+Sitemap: https://lineside0418.github.io/AviUtl2_Plugins/sitemap.xml

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>AviUtl2 - プラグイン/スクリプト一覧</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/icon.png" as="image">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Preload CSS -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Load main styles -->
+    <link rel="stylesheet" href="/src/index.css">
+    <link rel="stylesheet" href="/src/styles/style.css">
+    
+    <!-- Fallback for non-JS -->
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    </noscript>
+    <meta name="description" content="AviUtl2で使えるプラグインとスクリプトの一覧と情報を提供しています。エフェクト、フィルター、ツールなど様々なプラグインをカテゴリ別に検索できます。" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lineside0418.github.io/AviUtl2_Plugins/" />
+    <meta property="og:title" content="AviUtl2 - プラグイン/スクリプト一覧" />
+    <meta property="og:description" content="AviUtl2で使えるプラグインとスクリプトの一覧と情報を提供しています。" />
+    <meta property="og:image" content="https://lineside0418.github.io/AviUtl2_Plugins/ogp-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://lineside0418.github.io/AviUtl2_Plugins/" />
+    <meta name="twitter:title" content="AviUtl2 - プラグイン/スクリプト一覧" />
+    <meta name="twitter:description" content="AviUtl2で使えるプラグインとスクリプトの一覧と情報を提供しています。" />
+    <meta name="twitter:image" content="https://lineside0418.github.io/AviUtl2_Plugins/ogp-image.jpg" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lineside0418.github.io/AviUtl2_Plugins/" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a1a" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AviUtl2 プラグイン/スクリプト一覧",
+      "url": "https://lineside0418.github.io/AviUtl2_Plugins/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://lineside0418.github.io/AviUtl2_Plugins/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AviUtl2 Plugins",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://lineside0418.github.io/AviUtl2_Plugins/icon.png"
+        }
+      },
+      "description": "AviUtl2で使えるプラグインとスクリプトの一覧と情報を提供しています。"
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
