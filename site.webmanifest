@@ -1,0 +1,33 @@
+{
+  "name": "AviUtl2 プラグイン/スクリプト一覧",
+  "short_name": "AviUtl2 Plugins",
+  "description": "AviUtl2で使えるプラグインとスクリプトの一覧と情報を提供しています。",
+  "start_url": "/AviUtl2_Plugins/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
