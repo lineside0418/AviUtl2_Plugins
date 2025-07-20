@@ -14,11 +14,9 @@ import Footer from './components/Footer';
 import Breadcrumbs from './components/Breadcrumbs';
 
 function App() {
-  // 開発環境ではbasenameを空文字に、本番環境では/AviUtl2_Pluginsを設定
-  const basename = import.meta.env.PROD ? '/AviUtl2_Plugins' : '';
   
   return (
-    <Router basename={basename}>
+    <Router basename="AviUtl2_Plugins">
       <div className="app">
         <Header />
         <Breadcrumbs />
