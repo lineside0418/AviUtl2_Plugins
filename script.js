@@ -85,6 +85,8 @@ const App = {
                 scripts_subtitle: '便利なスクリプトを探そう',
                 install_title: '導入方法',
                 install_subtitle: 'プラグインとスクリプトの基本的な導入手順',
+                info_title: '情報提供',
+                info_subtitle: '新しいプラグインやスクリプトの情報を伝えよう'
             },
             common: {
                 search: '検索...',
