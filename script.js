@@ -177,7 +177,9 @@ const App = {
         }
         
         this.config = await this.fetchConfig();
-        this.howToInstallMarkdown = await this.fetchMarkdown('how_to_install.md');
+        // ★ 3. 初期ロード時に現在の言語のMarkdownを読み込む
+        const installFile = this.state.currentLang === 'en' ? 'how_to_install_en.md' : 'how_to_install.md';
+        this.howToInstallMarkdown = await this.fetchMarkdown(installFile);
 
         this.elements.navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -189,6 +191,18 @@ const App = {
                 }
             });
         });
+
+        // 言語切り替えボタンのイベントリスナー
+        if (this.elements.langToggleBtnGroup) {
+            this.elements.langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.switchLanguage(btn.dataset.lang);
+                });
+            });
+        }
+        
+        // 初期ロード時にボタンのスタイルを更新
+        this.updateLangButtonStyles();
 
         window.addEventListener('popstate', () => {
             this.navigate(this.getCurrentPageFromURL(), false);
@@ -415,6 +429,7 @@ const App = {
             const pluginsData = await pluginsRes.json();
             const scriptsData = await scriptsRes.json();
             
+            // microCMSのレスポンスにはidが含まれていることを前提とする
             this.state.plugins = pluginsData.contents;
             this.state.scripts = scriptsData.contents;
             
@@ -550,6 +565,9 @@ const App = {
 
         const t = this.getT();
         let content = '';
+        const lang = this.state.currentLang;
+        const dict = this.i18n[lang];
+
         switch (this.state.currentPage) {
             case 'plugins':
                 content = this.templates.itemsPage.call(this, t.hero.plugins.title, t.hero.plugins.subtitle, this.state.plugins);
@@ -733,6 +751,29 @@ const App = {
             }
         });
 
+        document.getElementById('app').addEventListener('change', (e) => {
+            if (e.target.id === 'sort-select') {
+                this.state.filters.sort = e.target.value;
+                this.renderItems();
+            }
+            if (e.target.id === 'items-per-page') {
+                this.state.pagination.limit = parseInt(e.target.value);
+                this.state.pagination.page = 1; // 件数変更時は1ページ目に戻す
+                this.renderItems();
+            }
+            // ★ 新機能: チェックボックスの入力（非表示のチェックボックスが直接操作された場合）
+            if (e.target.classList.contains('item-checkbox')) {
+                const itemId = e.target.value;
+                if (e.target.checked) {
+                    this.state.selectedItems.add(itemId);
+                } else {
+                    this.state.selectedItems.delete(itemId);
+                }
+                this.renderItems(); // ★ 見た目の更新のために再描画
+                this.updateBatchActionButtons(); // 選択数の更新
+            }
+        });
+
         document.getElementById('app').addEventListener('click', (e) => {
             // ページネーション
             const paginationBtn = e.target.closest('.pagination-btn');
@@ -801,10 +842,123 @@ const App = {
                 this.updateTagModeButtons();
                 this.renderItems();
             }
+
+            // 詳細ボタンの処理
+            const detailBtn = e.target.closest('.detail-link');
+            if (detailBtn) {
+                e.preventDefault();
+                const url = detailBtn.dataset.url;
+                if (url && url !== '#' && url !== '') {
+                    // URLがある場合は新しいタブで開く
+                    window.open(url, '_blank');
+                } else {
+                    // URLがない場合はカスタムモーダルを表示
+                    this.showModal();
+                }
+            }
+            
+            // ダウンロードボタンの処理
+            const downloadBtn = e.target.closest('.download-link');
+            if (downloadBtn) {
+                e.preventDefault();
+                const url = downloadBtn.dataset.url;
+                if (url && url !== '#' && url !== '') {
+                    // URLがある場合は新しいタブで開く
+                    window.open(url, '_blank');
+                } else {
+                    // URLがない場合はカスタムモーダルを表示 (ダウンロード情報なし)
+                    this.showModal();
+                }
+            }
+            
+            // ★ 新機能: 一括ダウンロードボタン
+            const batchDownloadBtn = e.target.closest('#batch-download-btn');
+            if (batchDownloadBtn) {
+                App.batchOpenLinks('download');
+            }
+            
+            // ★ 新機能: 一括詳細ボタン
+            const batchDetailBtn = e.target.closest('#batch-detail-btn');
+            if (batchDetailBtn) {
+                App.batchOpenLinks('detail');
+            }
+            
+            // ★ 新機能: すべて選択/選択解除ボタン
+            const selectAllBtn = e.target.closest('#select-all-btn');
+            if (selectAllBtn) {
+                App.toggleSelectAll(true);
+            }
+            
+            const deselectAllBtn = e.target.closest('#deselect-all-btn');
+            if (deselectAllBtn) {
+                App.toggleSelectAll(false);
+            }
         });
+    },
+    
+    // ★ 新機能: 一括リンクオープン処理
+    batchOpenLinks(type) {
+        const itemIds = Array.from(this.state.selectedItems);
+        const allItems = [...this.state.plugins, ...this.state.scripts];
+        
+        let validLinkCount = 0;
+
+        itemIds.forEach(id => {
+            // microCMSのIDはstringなので、== で比較
+            const item = allItems.find(i => i.id == id);
+            if (item) {
+                let url;
+                if (type === 'download') {
+                    url = item.url;
+                } else if (type === 'detail') {
+                    url = item.rel_link;
+                }
+                
+                if (url && url !== '#' && url !== '') {
+                    window.open(url, '_blank');
+                    validLinkCount++;
+                }
+            }
+        });
+
+        // リンクがないアイテムが選択されていた場合や、すべて開けた場合に通知
+        if (validLinkCount === 0 && itemIds.length > 0) {
+            // すべてリンクがない場合はモーダルを表示
+            this.showModal();
+        } else if (validLinkCount > 0) {
+            // すべて開いた後に選択状態をリセット
+            this.state.selectedItems.clear();
+            this.renderItems();
+            this.updateBatchActionButtons();
+        }
+    },
+    
+    // ★ 新機能: すべて選択/選択解除
+    toggleSelectAll(select) {
+        const itemsListElement = document.getElementById('items-list');
+        if (!itemsListElement) return;
+
+        // 現在画面に表示されているアイテムのIDを取得
+        const visibleItemCards = itemsListElement.querySelectorAll('.item-card');
+        
+        visibleItemCards.forEach(card => {
+            const id = card.dataset.id; 
+            if (id) {
+                 if (select) {
+                    this.state.selectedItems.add(id);
+                } else {
+                    this.state.selectedItems.delete(id);
+                }
+            }
+        });
+
+        // チェックボックスの状態をDOMに反映（再描画）
+        this.renderItems();
+        this.updateBatchActionButtons();
     },
 
     updateTagStyles() {
+        // renderItemsでスタイルはほぼ設定されているが、ここではhoverの再適用などを行う
         document.querySelectorAll('.tag-filter').forEach(tagEl => {
             const tag = tagEl.dataset.tag;
             const isActive = this.state.filters.tags.has(tag);
@@ -897,6 +1051,7 @@ const App = {
                         <div id="items-list" class="min-h-[200px]">
                             <!-- JSで描画 -->
                         </div>
+
                     </div>
 
                     <!-- サイドバー（フィルタ） -->
@@ -932,7 +1087,7 @@ const App = {
                                 `).join('') : `<p class="text-gray-500 text-sm">${t.filter.noTags}</p>`}
                             </div>
                         </div>
-                    </aside>
+                    </div>
                 </div>
             `;
         },
@@ -1020,8 +1175,7 @@ const App = {
                         </div>
                     </div>
                 </div>
-                `;
-            }
+            `;
         },
         installPage() {
             const t = this.getT();
