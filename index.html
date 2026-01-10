@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="./src/imgs/icon.png">
     <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
+    <!-- アイコン用（Phosphor Iconsなど軽量なものを使用推奨だが、今回はSVG直書きまたは汎用的な文字で代用し、外部依存を減らす） -->
 </head>
     
 <!-- Google tag (gtag.js) -->
@@ -24,42 +25,69 @@
   gtag('config', 'G-W1S5EJHY9Q');
 </script>
 
-<body class="antialiased">
+<body class="antialiased text-gray-100">
+
+    <!-- 通知トースト -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <div id="loader">
         <div class="spinner"></div>
+        <p class="mt-4 text-gray-400 text-sm animate-pulse">Loading...</p>
     </div>
 
     <div class="background-gradient"></div>
 
-    <div class="min-h-screen flex flex-col">
-        <header id="header" class="w-full glassmorphism">
+    <div class="min-h-screen flex flex-col relative z-0">
+        <header id="header" class="w-full glassmorphism border-b border-white/5">
             <div class="container mx-auto px-4">
                 <nav class="flex items-center justify-between h-16">
-                    <div class="text-2xl font-bold tracking-wider">
-                        <a href="#" class="nav-link" data-page="plugins">AviUtl2 Hub</a>
+                    <div class="text-2xl font-bold tracking-wider flex items-center gap-2">
+                        <a href="#" class="nav-link bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 hover:to-blue-400 transition-all duration-300" data-page="plugins">AviUtl2 Hub</a>
                     </div>
-                    <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors" data-page="plugins">プラグイン</a>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors" data-page="scripts">スクリプト</a>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors" data-page="install">導入方法</a>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors" data-page="info">情報提供</a>
+
+                    <!-- デスクトップメニュー -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="plugins">プラグイン</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="scripts">スクリプト</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="favorites">お気に入り</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="install">導入方法</a>
+                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="info">情報提供</a>
                     </div>
-                    </nav>
+
+                    <!-- モバイルメニューボタン -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+            
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden md:hidden glassmorphism border-t border-white/5 absolute w-full left-0 top-16 overflow-hidden transition-all duration-300 origin-top transform scale-y-0 opacity-0">
+                <div class="px-4 py-2 space-y-1">
+                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="plugins">プラグイン</a>
+                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="scripts">スクリプト</a>
+                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="favorites">お気に入り</a>
+                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="install">導入方法</a>
+                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="info">情報提供</a>
+                </div>
             </div>
         </header>
 
-        <main id="app" class="flex-grow container mx-auto px-4 py-8">
-            </main>
+        <main id="app" class="flex-grow container mx-auto px-4 py-8 relative">
+            <!-- コンテンツはJSでここに注入される -->
+        </main>
 
-        <footer class="w-full py-6">
-            <div class="container mx-auto px-4 text-center text-gray-400 text-sm">
-                <p>&copy; 2025 AviUtl2 Hub. All Rights Reserved.</p>
-                <p class="mt-1">This site is not affiliated with the official AviUtl developers.</p>
+        <footer class="w-full py-8 mt-auto border-t border-white/5 glassmorphism-footer">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-gray-400 text-sm">&copy; 2025 AviUtl2 Hub. All Rights Reserved.</p>
+                <p class="mt-2 text-xs text-gray-500">This site is not affiliated with the official AviUtl developers.</p>
             </div>
         </footer>
     </div>
 
+    <!-- type="module" で script.js を読み込む -->
     <script src="script.js" type="module"></script>
 </body>
 </html>
