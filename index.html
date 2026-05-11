@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>AviUtl2 Hub</title>
+    
+    <meta property="og:site_name" content="AviUtl2 Hub" />
+    <meta name="description" content="AviUtl2のプラグインやスクリプトをまとめて紹介しています。" />
+
+    <link rel="icon" type="image/png" sizes="48x48" href="./src/imgs/icon.png">
+    <link rel="apple-touch-icon" href="./src/imgs/icon.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AviUtl2 Hub",
+      "url": "https://lineside0418.github.io/"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="./src/imgs/icon.png">
-    <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
-    <!-- アイコン用（Phosphor Iconsなど軽量なものを使用推奨だが、今回はSVG直書きまたは汎用的な文字で代用し、外部依存を減らす） -->
-</head>
     
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1S5EJHY9Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-W1S5EJHY9Q');
-</script>
+    <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1S5EJHY9Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-W1S5EJHY9Q');
+    </script>
+</head>
 
 <body class="antialiased text-gray-100">
 
-    <!-- 通知トースト -->
     <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <div id="loader">
@@ -45,7 +58,6 @@
                         <a href="#" class="nav-link bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 hover:to-blue-400 transition-all duration-300" data-page="plugins">AviUtl2 Hub</a>
                     </div>
 
-                    <!-- デスクトップメニュー -->
                     <div class="hidden md:flex items-center space-x-1">
                         <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="plugins">プラグイン</a>
                         <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="scripts">スクリプト</a>
@@ -54,7 +66,6 @@
                         <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="info">情報提供</a>
                     </div>
 
-                    <!-- モバイルメニューボタン -->
                     <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -63,7 +74,6 @@
                 </nav>
             </div>
             
-            <!-- モバイルメニュー -->
             <div id="mobile-menu" class="hidden md:hidden glassmorphism border-t border-white/5 absolute w-full left-0 top-16 overflow-hidden transition-all duration-300 origin-top transform scale-y-0 opacity-0">
                 <div class="px-4 py-2 space-y-1">
                     <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="plugins">プラグイン</a>
@@ -76,7 +86,6 @@
         </header>
 
         <main id="app" class="flex-grow container mx-auto px-4 py-8 relative">
-            <!-- コンテンツはJSでここに注入される -->
         </main>
 
         <footer class="w-full py-8 mt-auto border-t border-white/5 glassmorphism-footer">
@@ -87,7 +96,6 @@
         </footer>
     </div>
 
-    <!-- type="module" で script.js を読み込む -->
     <script src="script.js" type="module"></script>
 </body>
 </html>
