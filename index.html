@@ -1,93 +1,148 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AviUtl2 Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <meta name="description" content="AviUtl2を拡張するプラグインやスクリプトを集めたハブサイト">
+    <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="./src/imgs/icon.png">
-    <meta name="google-site-verification" content="GCWAduxup_YYcVxvGHgIP316fcX_f3n2XVlsK-rNK_k" />
-    <!-- アイコン用（Phosphor Iconsなど軽量なものを使用推奨だが、今回はSVG直書きまたは汎用的な文字で代用し、外部依存を減らす） -->
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" type="image/png" href="./assets/imgs/icon.png">
     
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1S5EJHY9Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8',
+                            400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46',
+                            800: '#27272a', 900: '#18181b', 950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  gtag('config', 'G-W1S5EJHY9Q');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1S5EJHY9Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-W1S5EJHY9Q');
+    </script>
+</head>
+<body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 antialiased font-sans transition-colors duration-500 min-h-screen flex flex-col selection:bg-zinc-200 dark:selection:bg-zinc-800">
 
-<body class="antialiased text-gray-100">
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- 通知トースト -->
-    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <header id="header" class="sticky top-0 z-40 w-full bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl transition-colors">
+        <div class="max-w-[90rem] mx-auto px-4 md:px-6">
+            <nav class="flex items-center justify-between h-16">
+                <div class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                    <a href="#" class="nav-link text-zinc-900 dark:text-white" data-page="plugins">AviUtl2 Hub</a>
+                </div>
 
-    <div id="loader">
-        <div class="spinner"></div>
-        <p class="mt-4 text-gray-400 text-sm animate-pulse">Loading...</p>
-    </div>
-
-    <div class="background-gradient"></div>
-
-    <div class="min-h-screen flex flex-col relative z-0">
-        <header id="header" class="w-full glassmorphism border-b border-white/5">
-            <div class="container mx-auto px-4">
-                <nav class="flex items-center justify-between h-16">
-                    <div class="text-2xl font-bold tracking-wider flex items-center gap-2">
-                        <a href="#" class="nav-link bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 hover:to-blue-400 transition-all duration-300" data-page="plugins">AviUtl2 Hub</a>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8" id="desktop-nav">
+                    <div class="flex items-center gap-6">
+                        <a href="#" class="nav-link text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors" data-page="plugins">Plugins</a>
+                        <a href="#" class="nav-link text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors" data-page="scripts">Scripts</a>
+                        <a href="#" class="nav-link text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors" data-page="favorites">Favorites</a>
+                        <a href="#" class="nav-link text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors" data-page="install">Install</a>
+                        <a href="#" class="nav-link text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors" data-page="info">Contribute</a>
                     </div>
-
-                    <!-- デスクトップメニュー -->
-                    <div class="hidden md:flex items-center space-x-1">
-                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="plugins">プラグイン</a>
-                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="scripts">スクリプト</a>
-                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="favorites">お気に入り</a>
-                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="install">導入方法</a>
-                        <a href="#" class="nav-link px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-page="info">情報提供</a>
+                    
+                    <div class="flex items-center gap-4 border-l border-zinc-200 dark:border-zinc-800 pl-8">
+                        <button id="theme-toggle" class="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors focus:outline-none" aria-label="Toggle theme" title="System Theme">
+                            <i data-lucide="monitor" class="w-5 h-5"></i>
+                        </button>
+                        <button id="lang-toggle-desktop" class="text-sm font-bold text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors focus:outline-none" aria-label="Toggle language">
+                            EN
+                        </button>
                     </div>
+                </div>
 
-                    <!-- モバイルメニューボタン -->
-                    <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="theme-toggle-mobile" class="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors focus:outline-none" aria-label="Toggle theme">
+                        <i data-lucide="monitor" class="w-5 h-5"></i>
                     </button>
-                </nav>
-            </div>
-            
-            <!-- モバイルメニュー -->
-            <div id="mobile-menu" class="hidden md:hidden glassmorphism border-t border-white/5 absolute w-full left-0 top-16 overflow-hidden transition-all duration-300 origin-top transform scale-y-0 opacity-0">
-                <div class="px-4 py-2 space-y-1">
-                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="plugins">プラグイン</a>
-                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="scripts">スクリプト</a>
-                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="favorites">お気に入り</a>
-                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="install">導入方法</a>
-                    <a href="#" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10" data-page="info">情報提供</a>
+                    <button id="mobile-menu-btn" class="text-zinc-900 dark:text-white focus:outline-none transition-transform active:scale-95">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Mobile Fullscreen Menu -->
+        <div id="mobile-menu" class="fixed inset-0 top-20 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl z-30 hidden flex-col transition-all duration-400 opacity-0 overflow-y-auto">
+            <div class="px-6 py-8 flex flex-col gap-6">
+                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="plugins">Plugins</a>
+                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="scripts">Scripts</a>
+                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="favorites">Favorites</a>
+                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="install">Install</a>
+                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="info">Contribute</a>
+                
+                <div class="mt-8 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+                    <button id="lang-toggle-mobile" class="flex items-center justify-between w-full text-xl font-bold text-zinc-900 dark:text-white">
+                        <span>Language</span>
+                        <span class="text-sm font-semibold px-3 py-1 bg-zinc-100 dark:bg-zinc-900 rounded-full">English</span>
+                    </button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main id="app" class="flex-grow container mx-auto px-4 py-8 relative">
-            <!-- コンテンツはJSでここに注入される -->
-        </main>
+    <main id="app" class="flex-grow w-full max-w-[90rem] mx-auto px-4 md:px-6 py-6 md:py-8 relative">
+        <div id="initial-loader" class="flex flex-col items-center justify-center py-32">
+            <i data-lucide="loader-2" class="w-8 h-8 text-zinc-300 dark:text-zinc-700 animate-spin"></i>
+        </div>
+    </main>
 
-        <footer class="w-full py-8 mt-auto border-t border-white/5 glassmorphism-footer">
-            <div class="container mx-auto px-4 text-center">
-                <p class="text-gray-400 text-sm">&copy; 2026 AviUtl2 Hub. All Rights Reserved.</p>
-                <p class="mt-2 text-xs text-gray-500">This site is not affiliated with the official AviUtl developers.</p>
+    <footer class="w-full py-12 mt-auto bg-zinc-50 dark:bg-zinc-900">
+        <div class="max-w-[90rem] mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="text-zinc-900 dark:text-zinc-100 font-bold mb-2">AviUtl2 Hub</p>
+                <p class="text-zinc-500 dark:text-zinc-400 text-sm">&copy; <span id="year"></span> All Rights Reserved.</p>
+                <p class="text-zinc-400 dark:text-zinc-500 text-xs mt-1">Not affiliated with official AviUtl developers.</p>
             </div>
-        </footer>
-    </div>
+            <div class="flex items-center gap-6">
+                <a href="http://spring-fragrance.mints.ne.jp/aviutl/" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">
+                    AviUtl Official
+                </a>
+                <a href="https://github.com/lineside0418/AviUtl2_Plugins" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-white dark:bg-zinc-800 rounded-full text-zinc-900 dark:text-white hover:scale-105 transition-transform shadow-sm" aria-label="GitHub">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
 
-    <!-- type="module" で script.js を読み込む -->
-    <script src="script.js" type="module"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+    <script src="./assets/js/script.js" type="module"></script>
 </body>
 </html>

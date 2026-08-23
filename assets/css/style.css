@@ -1,0 +1,155 @@
+/* 共通スタイル */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* スクロールバー - ミニマル */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: #e4e4e7; /* zinc-200 */
+    border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #27272a; /* zinc-800 */
+}
+::-webkit-scrollbar-thumb:hover { background: #d4d4d8; /* zinc-300 */ }
+.dark ::-webkit-scrollbar-thumb:hover { background: #3f3f46; /* zinc-700 */ }
+
+/* Markdown スタイル - 枠線なしで美しいタイポグラフィに依存 */
+.markdown-body {
+    color: #52525b; /* zinc-600 */
+    line-height: 1.8;
+    font-size: 1.125rem;
+}
+.dark .markdown-body { color: #a1a1aa; /* zinc-400 */ }
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+    color: #09090b; /* zinc-950 */
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    letter-spacing: -0.025em;
+}
+.dark .markdown-body h1, .dark .markdown-body h2, .dark .markdown-body h3 {
+    color: #fafafa; /* zinc-50 */
+}
+.markdown-body h1 { font-size: 2.5rem; }
+.markdown-body h2 { font-size: 2rem; }
+.markdown-body h3 { font-size: 1.5rem; }
+.markdown-body p { margin-bottom: 1.5rem; }
+
+.markdown-body a { 
+    color: #09090b; 
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    text-decoration-color: #d4d4d8;
+    transition: all 0.2s; 
+    font-weight: 600;
+}
+.dark .markdown-body a {
+    color: #fafafa;
+    text-decoration-color: #3f3f46;
+}
+.markdown-body a:hover { 
+    text-decoration-color: #09090b;
+}
+.dark .markdown-body a:hover {
+    text-decoration-color: #fafafa;
+}
+
+.markdown-body code {
+    background-color: #f4f4f5; /* zinc-100 */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875em;
+    color: #18181b; /* zinc-900 */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 600;
+}
+.dark .markdown-body code {
+    background-color: #18181b; /* zinc-900 */
+    color: #f4f4f5; /* zinc-100 */
+}
+
+.markdown-body pre {
+    background-color: #fafafa; /* zinc-50 */
+    padding: 2rem;
+    border-radius: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+.dark .markdown-body pre {
+    background-color: #09090b; /* zinc-950 */
+}
+.markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    font-weight: 400;
+}
+
+.markdown-body ul, .markdown-body ol {
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+}
+.markdown-body ul { list-style-type: disc; }
+.markdown-body ol { list-style-type: decimal; }
+.markdown-body li { margin-bottom: 0.75rem; }
+
+.markdown-body blockquote {
+    border-left: 4px solid #09090b; /* zinc-950 */
+    padding: 1rem 0 1rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #71717a; /* zinc-500 */
+}
+.dark .markdown-body blockquote {
+    border-left-color: #fafafa; /* zinc-50 */
+    color: #a1a1aa; /* zinc-400 */
+}
+.markdown-body strong {
+    color: #09090b;
+    font-weight: 800;
+}
+.dark .markdown-body strong { color: #fafafa; }
+
+/* トースト通知 - ミニマル */
+.toast {
+    background-color: #18181b; /* zinc-900 */
+    color: #fafafa; /* zinc-50 */
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+    font-weight: 600;
+}
+.dark .toast {
+    background-color: #ffffff; /* white */
+    color: #09090b; /* zinc-950 */
+}
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* カスタムアニメーション */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+/* Favorite Button Active State */
+.fav-btn.active svg {
+    fill: currentColor;
+}
