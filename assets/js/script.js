@@ -590,8 +590,11 @@ const App = {
         return `
             <div class="group relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md rounded-2xl p-4 md:p-5 flex flex-col justify-between transition-all duration-200">
                 <div>
-                    <div class="flex justify-between items-start mb-2 gap-2">
-                        <h3 class="text-base font-bold text-zinc-900 dark:text-white leading-tight break-words">${escapeHTML(item.name)}</h3>
+                    <div class="flex justify-between items-start mb-3 gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-zinc-900 dark:text-white leading-tight break-words">${escapeHTML(item.name)}</h3>
+                            ${item.author ? `<p class="text-[11px] font-semibold text-zinc-400 mt-1">by ${escapeHTML(item.author)}</p>` : ''}
+                        </div>
                         <button class="fav-btn shrink-0 focus:outline-none transition-transform active:scale-90 ${isFav ? 'active text-zinc-900 dark:text-white' : 'text-zinc-300 dark:text-zinc-600 hover:text-zinc-500'}" data-id="${item.id}" data-name="${escapeHTML(item.name)}">
                             <i data-lucide="bookmark" class="w-5 h-5 transition-colors"></i>
                         </button>
