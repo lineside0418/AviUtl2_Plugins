@@ -72,6 +72,10 @@ const App = {
         header: document.getElementById('header'),
         mobileMenu: document.getElementById('mobile-menu'),
         mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+        siteMigrationModal: document.getElementById('site-migration-modal'),
+        siteMigrationClose: document.getElementById('site-migration-close'),
+        siteMigrationConfirm: document.getElementById('site-migration-confirm'),
+        siteMigrationDismissForever: document.getElementById('site-migration-dismiss-forever'),
         toastContainer: document.getElementById('toast-container'),
         themeToggles: [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')],
         langToggles: [document.getElementById('lang-toggle-desktop'), document.getElementById('lang-toggle-mobile')],
@@ -82,6 +86,7 @@ const App = {
         this.applyTheme();
         this.loadFavorites();
         this.setupEventListeners();
+        this.setupSiteMigrationNotice();
         this.updateLanguageUI();
         
         this.config = await this.fetchConfig();
@@ -204,14 +209,12 @@ const App = {
     toggleMobileMenu(isOpen) {
         this.state.isMobileMenuOpen = isOpen;
         const menu = this.elements.mobileMenu;
-        const icon = this.elements.mobileMenuBtn.querySelector('i');
         
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             menu.classList.remove('hidden');
             menu.classList.add('flex');
             setTimeout(() => menu.classList.replace('opacity-0', 'opacity-100'), 10);
-            icon.setAttribute('data-lucide', 'x');
         } else {
             document.body.style.overflow = '';
             menu.classList.replace('opacity-100', 'opacity-0');
@@ -219,9 +222,44 @@ const App = {
                 menu.classList.add('hidden');
                 menu.classList.remove('flex');
             }, 300);
-            icon.setAttribute('data-lucide', 'menu');
         }
+
+        // Lucide replaces its source <i> with an SVG. Rebuild the icon instead
+        // of querying an element which may no longer exist after initialization.
+        this.elements.mobileMenuBtn.innerHTML = `<i data-lucide="${isOpen ? 'x' : 'menu'}" class="w-6 h-6"></i>`;
         lucide.createIcons({ root: this.elements.mobileMenuBtn });
+    },
+
+    setupSiteMigrationNotice() {
+        const { siteMigrationModal: modal, siteMigrationClose: closeButton,
+            siteMigrationConfirm: confirmButton, siteMigrationDismissForever: dismissForever } = this.elements;
+        const storageKey = 'aviutl2_hub_site_migration_notice_dismissed';
+        if (!modal || localStorage.getItem(storageKey) === 'true') return;
+
+        const closeModal = () => {
+            if (dismissForever.checked) localStorage.setItem(storageKey, 'true');
+            modal.classList.replace('opacity-100', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+            document.removeEventListener('keydown', onKeyDown);
+        };
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') closeModal();
+        };
+
+        closeButton.addEventListener('click', closeModal);
+        confirmButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', onKeyDown);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        requestAnimationFrame(() => modal.classList.replace('opacity-0', 'opacity-100'));
+        lucide.createIcons({ root: modal });
+        closeButton.focus();
     },
 
     async fetchData() {

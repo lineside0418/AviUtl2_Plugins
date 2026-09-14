@@ -1,3 +1,5 @@
+url: "https://aviutl2-hub.sider51.com"
+baseurl: ""
 plugins:
   - jekyll-sitemap
 google_analytics: G-W1S5EJHY9Q

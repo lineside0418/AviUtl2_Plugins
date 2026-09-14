@@ -14,6 +14,7 @@
     
     <meta property="og:site_name" content="AviUtl2 Hub" />
     <meta name="description" content="AviUtl2を拡張するプラグインやスクリプトを集めたハブサイト" />
+    <link rel="canonical" href="https://aviutl2-hub.sider51.com/" />
 
     <link rel="icon" type="image/png" sizes="48x48" href="./assets/imgs/icon.png">
     <link rel="apple-touch-icon" href="./assets/imgs/icon.png" />
@@ -23,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "AviUtl2 Hub",
-      "url": "https://lineside0418.github.io/"
+      "url": "https://aviutl2-hub.sider51.com/"
     }
     </script>
     
@@ -68,6 +69,29 @@
 <body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 antialiased font-sans transition-colors duration-500 min-h-screen flex flex-col selection:bg-zinc-200 dark:selection:bg-zinc-800">
 
     <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <div id="site-migration-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-zinc-950/60 px-4 py-6 opacity-0 transition-opacity duration-200" role="dialog" aria-modal="true" aria-labelledby="site-migration-title" aria-describedby="site-migration-description">
+        <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl dark:bg-zinc-900 sm:p-8" tabindex="-1">
+            <div class="mb-5 flex items-start justify-between gap-4">
+                <div>
+                    <p class="mb-2 text-xs font-bold tracking-[0.18em] text-zinc-400">SITE MIGRATION</p>
+                    <h1 id="site-migration-title" class="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-white">サイトURLを移行しました</h1>
+                </div>
+                <button id="site-migration-close" type="button" class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white" aria-label="お知らせを閉じる">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <p id="site-migration-description" class="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                AviUtl2 Hub は新しいURLへ移行しました。以前のURLからアクセスした場合も自動的に移動します。ブックマークや共有用リンクは新しいURLへ更新をお願いします。
+            </p>
+            <a href="https://aviutl2-hub.sider51.com/" class="mt-5 block break-all rounded-xl bg-zinc-100 px-4 py-3 text-sm font-bold text-zinc-900 transition-colors hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">https://aviutl2-hub.sider51.com</a>
+            <label class="mt-6 flex cursor-pointer items-center gap-3 text-sm font-medium text-zinc-600 dark:text-zinc-300">
+                <input id="site-migration-dismiss-forever" type="checkbox" class="h-4 w-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-white">
+                今後このお知らせを表示しない
+            </label>
+            <button id="site-migration-confirm" type="button" class="mt-6 w-full rounded-xl bg-zinc-900 px-4 py-3 text-sm font-bold text-white transition-transform hover:bg-zinc-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus:ring-offset-zinc-900">閉じる</button>
+        </div>
+    </div>
 
     <header id="header" class="sticky top-0 z-40 w-full bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl transition-colors">
         <div class="max-w-[90rem] mx-auto px-4 md:px-6">
