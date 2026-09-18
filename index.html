@@ -132,24 +132,25 @@
             </nav>
         </div>
         
-        <!-- Mobile Fullscreen Menu -->
-        <div id="mobile-menu" class="fixed inset-0 top-20 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl z-30 hidden flex-col transition-all duration-400 opacity-0 overflow-y-auto">
-            <div class="px-6 py-8 flex flex-col gap-6">
-                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="plugins">Plugins</a>
-                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="scripts">Scripts</a>
-                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="favorites">Favorites</a>
-                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="install">Install</a>
-                <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="info">Contribute</a>
-                
-                <div class="mt-8 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-                    <button id="lang-toggle-mobile" class="flex items-center justify-between w-full text-xl font-bold text-zinc-900 dark:text-white">
-                        <span>Language</span>
-                        <span class="text-sm font-semibold px-3 py-1 bg-zinc-100 dark:bg-zinc-900 rounded-full">English</span>
-                    </button>
-                </div>
+    </header>
+
+    <!-- Kept outside the blurred header so fixed positioning uses the viewport. -->
+    <div id="mobile-menu" class="fixed inset-x-0 bottom-0 top-16 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl z-30 hidden flex-col transition-all duration-300 opacity-0 overflow-y-auto">
+        <div class="px-6 py-8 flex flex-col gap-6">
+            <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="plugins">Plugins</a>
+            <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="scripts">Scripts</a>
+            <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="favorites">Favorites</a>
+            <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="install">Install</a>
+            <a href="#" class="nav-link text-3xl font-bold text-zinc-900 dark:text-white tracking-tight" data-page="info">Contribute</a>
+
+            <div class="mt-8 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+                <button id="lang-toggle-mobile" class="flex items-center justify-between w-full text-xl font-bold text-zinc-900 dark:text-white">
+                    <span>Language</span>
+                    <span class="text-sm font-semibold px-3 py-1 bg-zinc-100 dark:bg-zinc-900 rounded-full">English</span>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
 
     <main id="app" class="flex-grow w-full max-w-[90rem] mx-auto px-4 md:px-6 py-6 md:py-8 relative">
         <div id="initial-loader" class="flex flex-col items-center justify-center py-32">
