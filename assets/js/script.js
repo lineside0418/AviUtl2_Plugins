@@ -11,6 +11,10 @@ const escapeHTML = (str) => {
 
 const TRANSLATIONS = {
     ja: {
+        overview: {
+            title: 'AviUtl2のプラグインとスクリプトを探す',
+            description: 'AviUtl2 Hubは、AviUtl2向けのプラグインとスクリプトを紹介する非公式サイトです。名前やタグで掲載アイテムを探し、各アイテムの配布ページや導入方法を確認できます。'
+        },
         nav: { plugins: 'プラグイン', scripts: 'スクリプト', favorites: 'お気に入り', install: '導入方法', info: '情報提供' },
         hero: {
             plugins: { title: 'Plugins', subtitle: 'AviUtl2を拡張するプラグイン' },
@@ -32,6 +36,10 @@ const TRANSLATIONS = {
         errorTitle: 'エラーが発生しました', reload: '再読み込み'
     },
     en: {
+        overview: {
+            title: 'Find plugins and scripts for AviUtl2',
+            description: 'AviUtl2 Hub is an unofficial directory of plugins and scripts for AviUtl2. Search listed items by name or tag, then find their distribution pages and installation guidance.'
+        },
         nav: { plugins: 'Plugins', scripts: 'Scripts', favorites: 'Favorites', install: 'Install', info: 'Contribute' },
         hero: {
             plugins: { title: 'Plugins', subtitle: 'Extend AviUtl2 with plugins' },
@@ -68,6 +76,9 @@ const App = {
     CACHE_DURATION: 5 * 60 * 1000,
     elements: {
         app: document.getElementById('app'),
+        overview: document.getElementById('site-overview'),
+        overviewTitle: document.getElementById('site-overview-title'),
+        overviewDescription: document.getElementById('site-overview-description'),
         navLinks: document.querySelectorAll('.nav-link'),
         header: document.getElementById('header'),
         mobileMenu: document.getElementById('mobile-menu'),
@@ -79,6 +90,7 @@ const App = {
 
     async init() {
         this.loadSettings();
+        this.elements.overview.hidden = this.getCurrentPageFromURL() !== 'plugins';
         this.applyTheme();
         this.loadFavorites();
         this.setupEventListeners();
@@ -139,6 +151,9 @@ const App = {
 
     updateLanguageUI() {
         const t = this.getT();
+        document.documentElement.lang = this.state.language;
+        this.elements.overviewTitle.textContent = t.overview.title;
+        this.elements.overviewDescription.textContent = t.overview.description;
         this.elements.langToggles[0].textContent = this.state.language === 'ja' ? 'EN' : 'JA';
         this.elements.langToggles[1].innerHTML = `<span>Language</span><span class="text-sm font-semibold px-3 py-1 bg-zinc-100 dark:bg-zinc-900 rounded-full">${this.state.language === 'ja' ? 'English' : '日本語'}</span>`;
 
@@ -177,6 +192,7 @@ const App = {
     },
 
     navigate(page, pushState = true) {
+        this.elements.overview.hidden = page !== 'plugins';
         if (this.state.currentPage === page && !this.state.isLoading) return;
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -390,7 +406,7 @@ const App = {
             
             content = `
                 <div class="mb-8 md:mb-10">
-                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-zinc-900 dark:text-white">${title}</h1>
+                    <${this.state.currentPage === 'plugins' ? 'h2' : 'h1'} class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-zinc-900 dark:text-white">${title}</${this.state.currentPage === 'plugins' ? 'h2' : 'h1'}>
                     <p class="text-base text-zinc-500 dark:text-zinc-400 font-medium">${sub}</p>
                 </div>
                 
