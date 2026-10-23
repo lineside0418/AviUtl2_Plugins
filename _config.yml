@@ -1,5 +1,7 @@
 url: "https://aviutl2-hub.sider51.com"
 baseurl: ""
+title: "AviUtl2 Hub"
+description: "AviUtl2向けのプラグインとスクリプトを紹介する非公式サイト"
 
 plugins:
   - jekyll-sitemap

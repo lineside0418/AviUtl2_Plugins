@@ -12,7 +12,7 @@ const escapeHTML = (str) => {
 const TRANSLATIONS = {
     ja: {
         overview: {
-            title: 'AviUtl2のプラグインとスクリプトを探す',
+            title: 'AviUtl2 Hub｜プラグイン・スクリプトを探す',
             description: 'AviUtl2 Hubは、AviUtl2向けのプラグインとスクリプトを紹介する非公式サイトです。名前やタグで掲載アイテムを探し、各アイテムの配布ページや導入方法を確認できます。'
         },
         nav: { plugins: 'プラグイン', scripts: 'スクリプト', favorites: 'お気に入り', install: '導入方法', info: '情報提供' },
@@ -37,7 +37,7 @@ const TRANSLATIONS = {
     },
     en: {
         overview: {
-            title: 'Find plugins and scripts for AviUtl2',
+            title: 'AviUtl2 Hub | Plugins and Scripts',
             description: 'AviUtl2 Hub is an unofficial directory of plugins and scripts for AviUtl2. Search listed items by name or tag, then find their distribution pages and installation guidance.'
         },
         nav: { plugins: 'Plugins', scripts: 'Scripts', favorites: 'Favorites', install: 'Install', info: 'Contribute' },
@@ -154,6 +154,10 @@ const App = {
         document.documentElement.lang = this.state.language;
         this.elements.overviewTitle.textContent = t.overview.title;
         this.elements.overviewDescription.textContent = t.overview.description;
+        const title = this.state.currentPage === 'plugins' ? t.overview.title : `${t.nav[this.state.currentPage] || ''} - AviUtl2 Hub`;
+        document.querySelector('meta[name="description"]').content = t.overview.description;
+        document.querySelector('meta[property="og:title"]').content = title;
+        document.querySelector('meta[property="og:description"]').content = t.overview.description;
         this.elements.langToggles[0].textContent = this.state.language === 'ja' ? 'EN' : 'JA';
         this.elements.langToggles[1].innerHTML = `<span>Language</span><span class="text-sm font-semibold px-3 py-1 bg-zinc-100 dark:bg-zinc-900 rounded-full">${this.state.language === 'ja' ? 'English' : '日本語'}</span>`;
 
@@ -162,7 +166,7 @@ const App = {
             const page = link.dataset.page;
             if (page && t.nav[page]) link.textContent = t.nav[page];
         });
-        document.title = `${t.nav[this.state.currentPage] || ''} - AviUtl2 Hub`;
+        document.title = title;
     },
 
     async fetchConfig() {
@@ -238,7 +242,7 @@ const App = {
         // Lucide replaces its source <i> with an SVG. Rebuild the icon instead
         // of querying an element which may no longer exist after initialization.
         this.elements.mobileMenuBtn.innerHTML = `<i data-lucide="${isOpen ? 'x' : 'menu'}" class="w-6 h-6"></i>`;
-        lucide.createIcons({ root: this.elements.mobileMenuBtn });
+        if (window.lucide) lucide.createIcons({ root: this.elements.mobileMenuBtn });
     },
 
     async fetchData() {
@@ -507,7 +511,7 @@ const App = {
         if (['plugins', 'scripts', 'favorites'].includes(this.state.currentPage)) {
             this.renderItems();
         }
-        lucide.createIcons();
+        if (window.lucide) lucide.createIcons();
     },
 
     async renderInstall() {
@@ -593,8 +597,10 @@ const App = {
                 </div>`;
             pageEl.classList.add('hidden');
         }
-        lucide.createIcons({ root: listEl });
-        lucide.createIcons({ root: pageEl });
+        if (window.lucide) {
+            lucide.createIcons({ root: listEl });
+            lucide.createIcons({ root: pageEl });
+        }
     },
 
     createCardHTML(item) {
@@ -746,5 +752,5 @@ const App = {
 
 document.addEventListener('DOMContentLoaded', () => {
     App.init();
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
 });
